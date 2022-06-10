@@ -7,19 +7,78 @@
     android:layout_height="match_parent"
     tools:context=".Functionalities.Register.RegisterFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="register" />
+
+    <EditText
+        android:id="@+id/emailRegister"
+        android:layout_width="500px"
+        android:layout_height="100px"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="143dp"
+        android:layout_marginEnd="189dp"
+        android:hint="    Email Address"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/passwordRegister"
+        android:layout_width="500px"
+        android:layout_height="100px"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="189dp"
+        android:hint="    Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
+
+    <EditText
+        android:id="@+id/firstNameRegister"
+        android:layout_width="500px"
+        android:layout_height="100px"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="189dp"
+        android:hint="    First Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+
+    <EditText
+        android:id="@+id/lastNameRegister"
+        android:layout_width="500px"
+        android:layout_height="100px"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="189dp"
+        android:hint="    Last Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameRegister" />
+
+    <Button
+        android:id="@+id/buttonToRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="252dp"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
 
     <Button
         android:id="@+id/buttonTestBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="576dp"
         android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

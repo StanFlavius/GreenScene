@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1035090089888",
+    "project_id": "greenscene-d6e81",
+    "storage_bucket": "greenscene-d6e81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035090089888:android:7a5d679dd2292d5714f6c5",
+        "android_client_info": {
+          "package_name": "com.example.greenscene"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035090089888-i16j9ds085mfelalh2smue9ogqgai45a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPq91ZUsZpO2_YNDkoo-JcWhKfTo-S1-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035090089888-i16j9ds085mfelalh2smue9ogqgai45a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
