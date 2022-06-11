@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_startScreenFragment_to_registerFragment2"
             app:destination="@id/registerFragment2" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -34,4 +37,10 @@
             android:id="@+id/action_registerFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/concertsMapFragment"
+        android:name="com.example.greenscene.Functionalities.ConcertsMap.ConcertsMapFragment"
+        android:label="ConcertsMapFragment" />
+
+
 </navigation>

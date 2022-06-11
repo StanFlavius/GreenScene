@@ -1,0 +1,40 @@
+package com.example.greenscene.Repo;
+
+import com.example.greenscene.APIs.PredictHQ.ApiPredictHQ;
+import com.example.greenscene.APIs.PredictHQ.ApiPredictHQInterface;
+import com.example.greenscene.Models.PredictHQApi.Event;
+import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Single;
+
+public class ConcertsMapRepo {
+    public static final String APIKEY_HQ = "Bearer aaf3dqZMYeNrlx91AdPbY1bnFSgHJI2lCkW1H9vy";
+    public static final Double BUCHAREST_LATITUDE = 44.435241;
+    public static final Double BUCHAREST_LONGITUDE = 26.102803;
+    String accept = new String("application/json");
+
+    private static ConcertsMapRepo instance;
+    private List<Event> dataSet = new ArrayList<>();
+
+    public static ConcertsMapRepo getInstance(){
+        if (instance == null) {
+            instance = new ConcertsMapRepo();
+        }
+        return instance;
+    }
+
+    private ConcertsMapRepo() {}
+
+    //Fixed geolocation position
+    //TODO: custom latitude and longitude?
+    public Single<PredictHQResult> getConcertList(){
+        ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
+        return apiPredictHQInterface.getConcertList(APIKEY_HQ, accept, "concerts");
+
+        //return hqresult.map(x -> x.getEvents());
+        //return apiPredictHQInterface.getConcertList(APIKEY_HQ, 10,"km", BUCHAREST_LATITUDE, BUCHAREST_LONGITUDE, "concerts");
+    }
+}
