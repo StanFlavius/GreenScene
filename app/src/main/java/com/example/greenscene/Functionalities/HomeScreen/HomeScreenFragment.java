@@ -89,7 +89,7 @@ public class HomeScreenFragment extends Fragment {
         googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
-                navController.navigate(R.id.action_homeScreenFragment_to_loginFragment2);
+                navController.navigate(R.id.action_homeScreenFragment_to_startScreenFragment);
             }
         });
     }
