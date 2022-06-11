@@ -30,7 +30,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
@@ -69,16 +72,6 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
         mViewModel.init();
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapView);
         supportMapFragment.getMapAsync(this);
-
-        mViewModel.getEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
-            @Override
-            public void onChanged(PredictHQResult res) {
-                /*for(int i=0;i<10;i++){
-                    System.out.println(res.getEvents().get(i).getTitle());
-                }*/
-
-            }
-        });
     }
 
     @Override
@@ -100,6 +93,21 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
                 if(location != null) {
                     LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+
+                    mViewModel.getEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+                        @Override
+                        public void onChanged(PredictHQResult res) {
+                            for(Event x : res.getEvents()) {
+                                String eventTitle = x.getTitle();
+                                LatLng latLng = new LatLng(x.getLocation().get(1), x.getLocation().get(0));
+                                Marker marker = gMap.addMarker(new MarkerOptions()
+                                        .position(latLng)
+                                        .title(eventTitle)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                                System.out.println(marker.getPosition());
+                            }
+                        }
+                    });
 
                 } else {
                     Toast.makeText(getActivity(), "Activate location", Toast.LENGTH_SHORT).show();

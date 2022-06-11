@@ -1,10 +1,11 @@
 package com.example.greenscene;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import com.facebook.FacebookSdk;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //initialize facebook sdk
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
     }
 }
