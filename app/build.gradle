@@ -69,4 +69,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+    // TODO: Implement facebook authentication
+    implementation 'com.facebook.android:facebook-android-sdk:13.2.0'
+
+    //google authentication
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
 }
