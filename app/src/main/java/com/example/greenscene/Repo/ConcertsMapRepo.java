@@ -37,4 +37,13 @@ public class ConcertsMapRepo {
         //return hqresult.map(x -> x.getEvents());
         //return apiPredictHQInterface.getConcertList(APIKEY_HQ, 10,"km", BUCHAREST_LATITUDE, BUCHAREST_LONGITUDE, "concerts");
     }
+
+    public Single<PredictHQResult> getAreaConcertList(){
+        ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
+        Double radius = 10.0;
+        String unit = "km";
+        String within = radius.toString() + unit + "@" + BUCHAREST_LATITUDE.toString() + "," + BUCHAREST_LONGITUDE.toString();
+        Integer limit = 10;
+        return apiPredictHQInterface.getAreaConcertList(APIKEY_HQ, accept, "concerts", within, limit);
+    }
 }

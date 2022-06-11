@@ -16,19 +16,19 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ConcertsMapViewModel extends ViewModel {
-    private MutableLiveData<PredictHQResult> result;
+    private MutableLiveData<PredictHQResult> concertList;
     private ConcertsMapRepo cRepo;
 
     public void init(){
-        result = new MutableLiveData<PredictHQResult>();
+        concertList = new MutableLiveData<PredictHQResult>();
         cRepo = ConcertsMapRepo.getInstance();
-        cRepo.getConcertList()
+        cRepo.getAreaConcertList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<PredictHQResult>() {
                     @Override
                     public void onSuccess(PredictHQResult res) {
-                        result.postValue(res);
+                        concertList.postValue(res);
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -38,6 +38,6 @@ public class ConcertsMapViewModel extends ViewModel {
     }
 
     public LiveData<PredictHQResult> getEvents() {
-        return result;
+        return concertList;
     }
 }
