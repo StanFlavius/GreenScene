@@ -2,7 +2,6 @@ package com.example.greenscene.Functionalities.Register;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,8 +43,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.regex.Pattern;
 
 public class RegisterFragment extends Fragment {
 

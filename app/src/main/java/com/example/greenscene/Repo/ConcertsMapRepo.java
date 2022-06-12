@@ -33,9 +33,6 @@ public class ConcertsMapRepo {
     public Single<PredictHQResult> getConcertList(){
         ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
         return apiPredictHQInterface.getConcertList(APIKEY_HQ, accept, "concerts");
-
-        //return hqresult.map(x -> x.getEvents());
-        //return apiPredictHQInterface.getConcertList(APIKEY_HQ, 10,"km", BUCHAREST_LATITUDE, BUCHAREST_LONGITUDE, "concerts");
     }
 
     public Single<PredictHQResult> getAreaConcertList(){
