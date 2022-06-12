@@ -59,4 +59,9 @@ public class ConcertsMapRepo {
         return apiPredictHQInterface.getPastEventsByIds(APIKEY_HQ, accept, "concerts", listOfIds, timeStart, 10);
     }
 
+    public Single<PredictHQResult> getFutureEventsByIds(String listOfIds, String timeEnd) {
+        ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
+
+        return apiPredictHQInterface.getFutureEventsByIds(APIKEY_HQ, accept, "concerts", listOfIds, timeEnd, 10);
+    }
 }

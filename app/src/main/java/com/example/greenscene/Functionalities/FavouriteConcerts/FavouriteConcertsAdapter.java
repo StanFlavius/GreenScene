@@ -1,4 +1,4 @@
-package com.example.greenscene.Functionalities.PastConcerts;
+package com.example.greenscene.Functionalities.FavouriteConcerts;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,30 +15,33 @@ import com.example.greenscene.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-public class PastConcertsAdapter extends RecyclerView.Adapter<PastConcertsAdapter.MyViewHolder> {
-    private List<Event> pastEventsList;
+public class FavouriteConcertsAdapter extends RecyclerView.Adapter<FavouriteConcertsAdapter.MyViewHolder> {
+    private List<Event> futureEventsList;
     private Context context;
-    private PastConcertsAdapter.OnItemClickListener onItemClickListener;
+    private FavouriteConcertsAdapter.OnItemClickListener onItemClickListener;
 
-    public PastConcertsAdapter(List<Event> pastEventsList, Context context) {
-        this.pastEventsList = pastEventsList;
+    public FavouriteConcertsAdapter(List<Event> futureEventsList, Context context) {
+        this.futureEventsList = futureEventsList;
         this.context = context;
     }
 
     @NonNull
     @NotNull
     @Override
-    public PastConcertsAdapter.MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.past_concerts_item,parent,false);
-        return new PastConcertsAdapter.MyViewHolder(view, onItemClickListener);
+    public FavouriteConcertsAdapter.MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.favourite_concerts_item,parent,false);
+        return new FavouriteConcertsAdapter.MyViewHolder(view, onItemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull PastConcertsAdapter.MyViewHolder holders, int position) {
-        final PastConcertsAdapter.MyViewHolder holder = holders;
-        Event model = pastEventsList.get(position);
+    public void onBindViewHolder(@NonNull @NotNull FavouriteConcertsAdapter.MyViewHolder holders, int position) {
+        final FavouriteConcertsAdapter.MyViewHolder holder = holders;
+        Event model = futureEventsList.get(position);
 
         holder.title.setText(model.getTitle());
 
@@ -59,7 +62,7 @@ public class PastConcertsAdapter extends RecyclerView.Adapter<PastConcertsAdapte
 
     @Override
     public int getItemCount() {
-        return pastEventsList.size();
+        return futureEventsList.size();
     }
 
     public interface OnItemClickListener {
@@ -71,16 +74,16 @@ public class PastConcertsAdapter extends RecyclerView.Adapter<PastConcertsAdapte
         TextView description;
         TextView start;
         Button removeButton;
-        PastConcertsAdapter.OnItemClickListener onItemClickListener;
+        FavouriteConcertsAdapter.OnItemClickListener onItemClickListener;
 
-        public MyViewHolder(@NonNull View itemView, PastConcertsAdapter.OnItemClickListener onItemClickListener) {
+        public MyViewHolder(@NonNull View itemView, FavouriteConcertsAdapter.OnItemClickListener onItemClickListener) {
             super(itemView);
 
             itemView.setOnClickListener(this);
             //TODO:
-            title = itemView.findViewById(R.id.titlePastItem);
-            description = itemView.findViewById(R.id.desciptionPastItem);
-            start = itemView.findViewById(R.id.startPastItem);
+            title = itemView.findViewById(R.id.titleFutureItem);
+            description = itemView.findViewById(R.id.descriptionFutureItem);
+            start = itemView.findViewById(R.id.startFutureItem);
 
             this.onItemClickListener = onItemClickListener;
         }
@@ -91,8 +94,8 @@ public class PastConcertsAdapter extends RecyclerView.Adapter<PastConcertsAdapte
         }
     }
 
-    public void updateData(List<Event> pastEvents, OnItemClickListener onItemClickListener){
-        this.pastEventsList = pastEvents;
+    public void updateData(List<Event> futureEvents, FavouriteConcertsAdapter.OnItemClickListener onItemClickListener){
+        this.futureEventsList = futureEvents;
         this.onItemClickListener = onItemClickListener;
         notifyDataSetChanged();
     }
