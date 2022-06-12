@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_loginFragment2_to_registerFragment2"
             app:destination="@id/registerFragment2" />
+        <action
+            android:id="@+id/action_loginFragment2_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -36,26 +39,45 @@
         <action
             android:id="@+id/action_registerFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_registerFragment2_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/concertsMapFragment"
         android:name="com.example.greenscene.Functionalities.ConcertsMap.ConcertsMapFragment"
-        android:label="ConcertsMapFragment" />
+        android:label="ConcertsMapFragment" >
+        <action
+            android:id="@+id/action_concertsMapFragment_to_startScreenFragment"
+            app:destination="@id/startScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteConcertsFragment2"
         android:name="com.example.greenscene.Functionalities.FavouriteConcerts.FavouriteConcertsFragment"
         android:label="favourite_concerts_fragment"
-        tools:layout="@layout/favourite_concerts_fragment" />
+        tools:layout="@layout/favourite_concerts_fragment" >
+        <action
+            android:id="@+id/action_favouriteConcertsFragment2_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pastConcertsFragment2"
         android:name="com.example.greenscene.Functionalities.PastConcerts.PastConcertsFragment"
         android:label="past_concerts_fragment"
-        tools:layout="@layout/past_concerts_fragment" />
+        tools:layout="@layout/past_concerts_fragment" >
+        <action
+            android:id="@+id/action_pastConcertsFragment2_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
         android:name="com.example.greenscene.Functionalities.Settings.SettingsFragment"
         android:label="settings_fragment"
-        tools:layout="@layout/settings_fragment" />
+        tools:layout="@layout/settings_fragment" >
+        <action
+            android:id="@+id/action_settingsFragment2_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
+    </fragment>
 
 
 </navigation>

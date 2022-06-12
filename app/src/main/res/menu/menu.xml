@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/favourite"
+        android:id="@+id/favouriteConcertsFragment2"
         android:title="Favourites"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_baseline_favorite_24"
         />
 
     <item
-        android:id="@+id/past_events"
+        android:id="@+id/pastConcertsFragment2"
         android:title="Past Events"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_past"
         />
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/settingsFragment2"
         android:title="Settings"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_settings"
         />
 
     <item
-        android:id="@+id/logout"
+        android:id="@+id/loginFragment2"
         android:title="Logout"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_exit"

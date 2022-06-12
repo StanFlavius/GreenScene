@@ -136,7 +136,7 @@ public class LoginFragment extends Fragment {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                navController.navigate(R.id.action_loginFragment2_to_registerFragment2);
+                navController.navigate(R.id.action_loginFragment2_to_concertsMapFragment);
             }
             catch (ApiException e){
                 Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();

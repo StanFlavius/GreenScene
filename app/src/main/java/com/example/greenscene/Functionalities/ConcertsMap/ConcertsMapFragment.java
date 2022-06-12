@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,9 +77,20 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_view);
+//        navController = Navigation.findNavController(view);
+//        BottomNavigationView bottomNavigationView = view.findViewById(R.id.nav);
+//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
         navController = Navigation.findNavController(view);
-        bottomNavigationView.setupWithNavController(navController);
+        FloatingActionButton button = view.findViewById(R.id.homeButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_concertsMapFragment_to_startScreenFragment);
+            }
+        });
+        BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
+        NavigationUI.setupWithNavController(navBar, navController);
 
         TextView concertTextView;
         mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);

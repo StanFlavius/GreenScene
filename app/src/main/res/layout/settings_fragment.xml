@@ -10,5 +10,5 @@
         android:layout_height="match_parent"
         android:text="settings" />
 
-    <include layout="@layout/bottom_nav"/>
+    <include android:id="@+id/nav" layout="@layout/bottom_nav"/>
 </FrameLayout>
