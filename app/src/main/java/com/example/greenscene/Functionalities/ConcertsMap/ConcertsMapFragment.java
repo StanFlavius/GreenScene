@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,6 +49,7 @@ import java.util.List;
 
 public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener {
 
+    private NavController navController;
     private ConcertsMapViewModel mViewModel;
     private GoogleMap gMap;
 
@@ -68,6 +73,10 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_view);
+        navController = Navigation.findNavController(view);
+        bottomNavigationView.setupWithNavController(navController);
 
         TextView concertTextView;
         mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);
