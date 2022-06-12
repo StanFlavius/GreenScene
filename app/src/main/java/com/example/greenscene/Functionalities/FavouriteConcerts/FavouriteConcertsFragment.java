@@ -27,6 +27,7 @@ import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +41,7 @@ public class FavouriteConcertsFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private FavouriteConcertsAdapter adapter;
     private FavouriteConcertsAdapter.OnItemClickListener listener;
+    private FirebaseAuth fAuth;
 
     private NavController navController;
     private FavouriteConcertsViewModel mViewModel;
@@ -76,6 +78,7 @@ public class FavouriteConcertsFragment extends Fragment {
         BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
         NavigationUI.setupWithNavController(navBar, navController);
 
+        fAuth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.future_favourite_recycler);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -84,21 +87,37 @@ public class FavouriteConcertsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         mViewModel = ViewModelProviders.of(this).get(FavouriteConcertsViewModel.class);
-        mViewModel.getFavorites();
+        String currentUserId = fAuth.getUid();
+        mViewModel.getEventIds(currentUserId);
 
-        mViewModel.getFutureEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+        mViewModel.getEventIds().observe((LifecycleOwner) requireContext(), new Observer<List<String>>() {
             @Override
-            public void onChanged(PredictHQResult predictHQResult) {
-                List<Event> listOfEvents = predictHQResult.getEvents();
-                System.out.println(listOfEvents.get(0).getTitle());
-                listener = new FavouriteConcertsAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //final NavController navController = Navigation.findNavController(view);
+            public void onChanged(List<String> strings) {
+                String idQuery = "";
+                List<String> userEventIds = mViewModel.getEventIds().getValue();
+                for(int i=0;i<userEventIds.size()-1;i++){
+                    idQuery += userEventIds.get(i) + ",";
+                }
+                if(userEventIds.size()>0){
+                    idQuery += userEventIds.get(0);
+                }
 
+                mViewModel.getFavorites(idQuery);
+
+                mViewModel.getFutureEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+                    @Override
+                    public void onChanged(PredictHQResult predictHQResult) {
+                        List<Event> listOfEvents = predictHQResult.getEvents();
+                        listener = new FavouriteConcertsAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                //final NavController navController = Navigation.findNavController(view);
+
+                            }
+                        };
+                        adapter.updateData(listOfEvents, listener);
                     }
-                };
-                adapter.updateData(listOfEvents, listener);
+                });
             }
         });
     }
