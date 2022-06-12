@@ -73,30 +73,30 @@ public class PastConcertsFragment extends Fragment {
         });
         BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
         NavigationUI.setupWithNavController(navBar, navController);
-//
-//        recyclerView = view.findViewById(R.id.past_favorites_recycler);
-//        layoutManager = new LinearLayoutManager(getContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        adapter = new PastConcertsAdapter(new ArrayList<Event>(),getContext());
-//        recyclerView.setAdapter(adapter);
-//
-//        mViewModel = ViewModelProviders.of(this).get(PastConcertsViewModel.class);
-//        mViewModel.getFavorites();
-//
-//        mViewModel.getPastEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
-//            @Override
-//            public void onChanged(PredictHQResult predictHQResult) {
-//                List<Event> listOfEvents = predictHQResult.getEvents();
-//                listener = new PastConcertsAdapter.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//                        //final NavController navController = Navigation.findNavController(view);
-//
-//                    }
-//                };
-//                adapter.updateData(listOfEvents, listener);
-//            }
-//        });
+
+        recyclerView = view.findViewById(R.id.past_favorites_recycler);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new PastConcertsAdapter(new ArrayList<Event>(),getContext());
+        recyclerView.setAdapter(adapter);
+
+        mViewModel = ViewModelProviders.of(this).get(PastConcertsViewModel.class);
+        mViewModel.getFavorites();
+
+        mViewModel.getPastEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+            @Override
+            public void onChanged(PredictHQResult predictHQResult) {
+                List<Event> listOfEvents = predictHQResult.getEvents();
+                listener = new PastConcertsAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //final NavController navController = Navigation.findNavController(view);
+
+                    }
+                };
+                adapter.updateData(listOfEvents, listener);
+            }
+        });
     }
 }

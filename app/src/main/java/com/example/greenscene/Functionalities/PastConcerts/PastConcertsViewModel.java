@@ -31,6 +31,9 @@ public class PastConcertsViewModel extends ViewModel {
 
     public void getFavorites() {
         List<String> hardCoded = new ArrayList<String>();
+        pastEvents = new MutableLiveData<>();
+
+        eventIds = new MutableLiveData<>();
         hardCoded.add("FsWBe8jvwEkKoLz5Zr");
         hardCoded.add("3UdksNHc4WEb2iXeQz");
         eventIds.postValue(hardCoded);
