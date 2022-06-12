@@ -21,4 +21,10 @@ public interface ApiPredictHQInterface {
                                                @Query("category") String category,
                                                @Query("within") String within,
                                                @Query("limit") Integer limit);
+
+    @GET("events")
+    Single<PredictHQResult> getEventById(@Header("Authorization") String authToken,
+                                         @Header("Accept") String accept,
+                                         @Query("category") String category,
+                                         @Query("id") String id);
 }

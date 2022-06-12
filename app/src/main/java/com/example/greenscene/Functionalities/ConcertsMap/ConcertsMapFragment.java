@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +43,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener {
 
     private ConcertsMapViewModel mViewModel;
     private GoogleMap gMap;
@@ -77,6 +79,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.gMap = googleMap;
+        this.gMap.setOnMarkerClickListener(this);
         this.gMap.setOnMapClickListener(this);
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -104,6 +107,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
                                         .position(latLng)
                                         .title(eventTitle)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                                marker.setTag(x.getId());
                                 System.out.println(marker.getPosition());
                             }
                         }
@@ -119,5 +123,32 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
 
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View mView = getLayoutInflater().inflate(R.layout.concert_popup, null);
+
+        mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);
+        mViewModel.init(marker.getTag().toString());
+
+        mViewModel.getEvent().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+            @Override
+            public void onChanged(PredictHQResult predictHQResult) {
+                TextView titleTextView = mView.findViewById(R.id.titleTextView);
+                TextView descriptionTextView = mView.findViewById(R.id.descriptionTextView);
+
+                titleTextView.setText(predictHQResult.getEvents().get(0).getTitle());
+                descriptionTextView.setText(predictHQResult.getEvents().get(0).getCategory());
+
+            }
+        });
+
+        builder.setView(mView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        return false;
     }
 }

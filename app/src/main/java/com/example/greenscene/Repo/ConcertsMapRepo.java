@@ -46,4 +46,10 @@ public class ConcertsMapRepo {
         Integer limit = 10;
         return apiPredictHQInterface.getAreaConcertList(APIKEY_HQ, accept, "concerts", within, limit);
     }
+
+    public Single<PredictHQResult> getEventById(String eventId){
+        ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
+
+        return apiPredictHQInterface.getEventById(APIKEY_HQ, accept, "concerts", eventId);
+    }
 }
