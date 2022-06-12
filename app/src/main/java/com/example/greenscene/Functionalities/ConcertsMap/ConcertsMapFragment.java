@@ -77,10 +77,6 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        navController = Navigation.findNavController(view);
-//        BottomNavigationView bottomNavigationView = view.findViewById(R.id.nav);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
         navController = Navigation.findNavController(view);
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +88,6 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
         BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
         NavigationUI.setupWithNavController(navBar, navController);
 
-        TextView concertTextView;
         mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);
         mViewModel.init();
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapView);
@@ -164,6 +159,14 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
 
                 titleTextView.setText(predictHQResult.getEvents().get(0).getTitle());
                 descriptionTextView.setText(predictHQResult.getEvents().get(0).getCategory());
+
+                Button buttonAddFav = mView.findViewById(R.id.buttonAddFav);
+                buttonAddFav.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
 
             }
         });

@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.Repo.ConcertsMapRepo;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +24,8 @@ public class ConcertsMapViewModel extends ViewModel {
     private MutableLiveData<PredictHQResult> concertList;
     private MutableLiveData<PredictHQResult> event;
     private ConcertsMapRepo cRepo;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     public void init(){
         concertList = new MutableLiveData<PredictHQResult>();
@@ -57,6 +62,24 @@ public class ConcertsMapViewModel extends ViewModel {
                     }
                 });
     }
+
+//    public void addFav(Fa){
+//        db.collection("Favourites")
+//                .document(UUID.randomUUID().toString())
+//                .set(fav)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void unused) {
+//                        //Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull @NotNull Exception e) {
+//                        //Log.d("FAILED", e.getLocalizedMessage());
+//                    }
+//                });
+//    }
 
     public LiveData<PredictHQResult> getEvent() {return event;}
 

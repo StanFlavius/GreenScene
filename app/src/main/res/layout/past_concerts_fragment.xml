@@ -5,10 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".Functionalities.PastConcerts.PastConcertsFragment">
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="past" />
+        android:layout_height="match_parent" >
 
-    <include android:id="@+id/nav" layout="@layout/bottom_nav"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/past_favorites_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include layout="@layout/bottom_nav" />
+
+        <include android:id="@+id/nav" layout="@layout/bottom_nav"/>
+
+    </androidx.cardview.widget.CardView>
+
+
 </FrameLayout>

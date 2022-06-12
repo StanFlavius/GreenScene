@@ -27,4 +27,12 @@ public interface ApiPredictHQInterface {
                                          @Header("Accept") String accept,
                                          @Query("category") String category,
                                          @Query("id") String id);
+
+    @GET("events")
+    Single<PredictHQResult> getPastEventsByIds(@Header("Authorization") String authToken,
+                                               @Header("Accept") String accept,
+                                               @Query("category") String category,
+                                               @Query("id") String listOfIds,
+                                               @Query("start.lte") String start,
+                                               @Query("limit") Integer limit);
 }
