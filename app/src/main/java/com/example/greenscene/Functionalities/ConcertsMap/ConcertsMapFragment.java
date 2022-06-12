@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.greenscene.Models.Database.FavouriteElement;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
@@ -45,6 +46,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,6 +57,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     private NavController navController;
     private ConcertsMapViewModel mViewModel;
     private GoogleMap gMap;
+    private FirebaseAuth fAuth;
 
     public static ConcertsMapFragment newInstance() {
         return new ConcertsMapFragment();
@@ -77,6 +80,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        fAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -160,14 +164,20 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
                 titleTextView.setText(predictHQResult.getEvents().get(0).getTitle());
                 descriptionTextView.setText(predictHQResult.getEvents().get(0).getCategory());
 
+                System.out.println(predictHQResult.getEvents().get(0).getId());
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                System.out.println(predictHQResult.getEvents().get(0).getEnd());
+
                 Button buttonAddFav = mView.findViewById(R.id.buttonAddFav);
                 buttonAddFav.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        String favElementId = predictHQResult.getEvents().get(0).getId();
+                        String userId = fAuth.getUid();
+                        FavouriteElement  favouriteElement = new FavouriteElement(favElementId, userId);
+                        mViewModel.addFav(favouriteElement);
                     }
                 });
-
             }
         });
 

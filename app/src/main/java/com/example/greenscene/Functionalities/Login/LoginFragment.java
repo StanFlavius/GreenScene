@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment {
                 else {
                     mAuth.signInWithEmailAndPassword(emailData, passwordData).addOnCompleteListener((OnCompleteListener<AuthResult>) task -> {
                         if (task.isSuccessful()) {
-                            navController.navigate(R.id.action_loginFragment2_to_registerFragment2);
+                            navController.navigate(R.id.action_loginFragment2_to_concertsMapFragment);
                         } else {
                             Toast.makeText(getActivity(), "Could not log in! Email or password is incorrect", Toast.LENGTH_SHORT).show();
                         }

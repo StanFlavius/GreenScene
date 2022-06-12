@@ -133,11 +133,11 @@ public class RegisterFragment extends Fragment {
                         if (! checkEmail){
                             mAuth.createUserWithEmailAndPassword(emailData, passwordData).addOnCompleteListener((OnCompleteListener<AuthResult>) task ->{
                                 if (task.isSuccessful()){
-                                    String userToken = UUID.randomUUID().toString();
-                                    User user = new User(userToken, emailData, firstNameData, lastNameData, passwordData);
+                                    FirebaseUser userC = mAuth.getCurrentUser();
+                                    User user = new User(userC.getUid(), emailData, firstNameData, lastNameData, passwordData);
 
                                     db.collection("Users")
-                                            .document(userToken)
+                                            .document(userC.getUid())
                                             .set(user)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -215,11 +215,11 @@ public class RegisterFragment extends Fragment {
                         if (task.isSuccessful()){
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            String userToken = UUID.randomUUID().toString();
-                            User user2 = new User(userToken, user.getEmail(), user.getDisplayName().split(" ")[0],
+                            //String userToken = UUID.randomUUID().toString();
+                            User user2 = new User(user.getUid(), user.getEmail(), user.getDisplayName().split(" ")[0],
                                     user.getDisplayName().split(" ")[1], "no data");
                             db.collection("Users")
-                                    .document(userToken)
+                                    .document(user.getUid())
                                     .set(user2)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

@@ -59,6 +59,12 @@
         <action
             android:id="@+id/action_favouriteConcertsFragment2_to_concertsMapFragment"
             app:destination="@id/concertsMapFragment" />
+        <action
+            android:id="@+id/action_favouriteConcertsFragment2_to_pastConcertsFragment2"
+            app:destination="@id/pastConcertsFragment2" />
+        <action
+            android:id="@+id/action_favouriteConcertsFragment2_to_settingsFragment2"
+            app:destination="@id/settingsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/pastConcertsFragment2"
@@ -67,6 +73,12 @@
         tools:layout="@layout/past_concerts_fragment" >
         <action
             android:id="@+id/action_pastConcertsFragment2_to_concertsMapFragment"
+            app:destination="@id/concertsMapFragment" />
+        <action
+            android:id="@+id/action_pastConcertsFragment2_to_settingsFragment2"
+            app:destination="@id/settingsFragment2" />
+        <action
+            android:id="@+id/action_pastConcertsFragment2_to_concertsMapFragment2"
             app:destination="@id/concertsMapFragment" />
     </fragment>
     <fragment
@@ -77,6 +89,12 @@
         <action
             android:id="@+id/action_settingsFragment2_to_concertsMapFragment"
             app:destination="@id/concertsMapFragment" />
+        <action
+            android:id="@+id/action_settingsFragment2_to_pastConcertsFragment2"
+            app:destination="@id/pastConcertsFragment2" />
+        <action
+            android:id="@+id/action_settingsFragment2_to_favouriteConcertsFragment2"
+            app:destination="@id/favouriteConcertsFragment2" />
     </fragment>
 
 
