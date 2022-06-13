@@ -4,6 +4,10 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,12 +20,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
+import com.example.greenscene.Repo.ImageRepo;
+import com.google.android.gms.location.ActivityTransition;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +45,12 @@ public class PastEventDetailsFragment extends Fragment {
     private TextView descriptionTextView;
     private TextView startTextView;
     private RecyclerView recyclerView;
+    private Button addPhotoButton;
+    private Uri imageUri;
 
     private PastEventDetailsViewModel mViewModel;
     private FirebaseAuth fAuth;
+    private ImageRepo imageRepo;
 
     public static PastEventDetailsFragment newInstance() {
         return new PastEventDetailsFragment();
@@ -63,11 +79,13 @@ public class PastEventDetailsFragment extends Fragment {
         }
 
         fAuth = FirebaseAuth.getInstance();
+        imageRepo = ImageRepo.getInstance();
 
         titleTextView = view.findViewById(R.id.pastDetailsTitle);
         descriptionTextView = view.findViewById(R.id.pastDetailsDescription);
         startTextView = view.findViewById(R.id.pastDetailsStart);
         recyclerView = view.findViewById(R.id.pastDetailsGallery);
+        addPhotoButton = view.findViewById(R.id.addPhotoButton);
 
         mViewModel = ViewModelProviders.of(this).get(PastEventDetailsViewModel.class);
         mViewModel.init(currentEventId);
@@ -99,11 +117,41 @@ public class PastEventDetailsFragment extends Fragment {
                 mViewModel.getImageURLs().observe((LifecycleOwner) getContext(), new Observer<List<String>>() {
                     @Override
                     public void onChanged(List<String> resultURLs) {
-                        System.out.println("SUUUUUUUUUUUUUUU "+resultURLs.size());
-                        adapter.updateData(resultURLs, null);
+                        adapter.updateData(resultURLs, new PastEventDetailsAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                            }
+                        });
                     }
                 });
             }
         });
+
+        addPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, 2);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
+            imageUri = data.getData();
+            imageRepo.uploadImage(imageUri, this.currentEventId, fAuth.getUid(), getFileExtension(imageUri));
+        }
+    }
+
+    public String getFileExtension(Uri uri) {
+        ContentResolver cr = getContext().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 }

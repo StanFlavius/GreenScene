@@ -63,7 +63,7 @@ public class PastEventDetailsAdapter extends RecyclerView.Adapter<PastEventDetai
         requestOptions.centerCrop();
 
         Glide.with(context)
-                .load(imageURLs.get(position))
+                .load(currentURL)
                 .apply(requestOptions)
                 .listener(new RequestListener<Drawable>() {
                     @Override

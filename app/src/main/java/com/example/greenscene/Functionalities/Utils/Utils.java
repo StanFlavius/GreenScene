@@ -22,4 +22,5 @@ public class Utils {
         int idx = new Random().nextInt(vibrantLightColorList.length);
         return vibrantLightColorList[idx];
     }
+
 }
