@@ -25,6 +25,7 @@ import com.example.greenscene.Functionalities.PastConcerts.PastConcertsViewModel
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,8 +76,31 @@ public class FavouriteConcertsFragment extends Fragment {
                 navController.navigate(R.id.action_favouriteConcertsFragment2_to_concertsMapFragment);
             }
         });
-        BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
-        NavigationUI.setupWithNavController(navBar, navController);
+
+//        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+//        menuItem1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_favouriteConcertsFragment2_to_pastConcertsFragment2);
+//            }
+//        });
+
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_favouriteConcertsFragment2_to_settingsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem4 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_favouriteConcertsFragment2_to_pastConcertsFragment2);
+            }
+        });
 
         fAuth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.future_favourite_recycler);

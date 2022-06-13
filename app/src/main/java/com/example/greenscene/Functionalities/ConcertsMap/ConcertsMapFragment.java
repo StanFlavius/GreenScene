@@ -22,12 +22,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.greenscene.Functionalities.FavouriteConcerts.FavouriteConcertsFragment;
+import com.example.greenscene.Functionalities.PastConcerts.PastConcertsFragment;
 import com.example.greenscene.Models.Database.FavouriteElement;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
@@ -44,6 +48,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -82,15 +87,37 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
 
         fAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
-        FloatingActionButton button = view.findViewById(R.id.homeButton);
-        button.setOnClickListener(new View.OnClickListener() {
+
+//        FloatingActionButton button = view.findViewById(R.id.homeButton);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_concertsMapFragment_to_startScreenFragment);
+//            }
+//        });
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_concertsMapFragment_to_startScreenFragment);
+                navController.navigate(R.id.action_concertsMapFragment_to_favouriteConcertsFragment2);
             }
         });
-        BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
-        NavigationUI.setupWithNavController(navBar, navController);
+
+        BottomNavigationItemView menuItem2 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_concertsMapFragment_to_pastConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_concertsMapFragment_to_settingsFragment2);
+            }
+        });
 
         mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);
         mViewModel.init();

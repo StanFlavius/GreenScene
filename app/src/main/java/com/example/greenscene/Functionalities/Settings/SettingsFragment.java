@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.greenscene.R;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -48,6 +49,7 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,21 @@ public class SettingsFragment extends Fragment {
                 navController.navigate(R.id.action_settingsFragment2_to_concertsMapFragment);
             }
         });
-        BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
-        NavigationUI.setupWithNavController(navBar, navController);
+
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_settingsFragment2_to_favouriteConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_settingsFragment2_to_pastConcertsFragment2);
+            }
+        });
     }
 }

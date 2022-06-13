@@ -17,17 +17,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,7 @@ public class PastConcertsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +76,22 @@ public class PastConcertsFragment extends Fragment {
                 navController.navigate(R.id.action_pastConcertsFragment2_to_concertsMapFragment);
             }
         });
-        BottomNavigationView navBar = view.findViewById(R.id.bottom_navigation_view);
-        NavigationUI.setupWithNavController(navBar, navController);
+
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_pastConcertsFragment2_to_favouriteConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_pastConcertsFragment2_to_settingsFragment2);
+            }
+        });
 
         fAuth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.past_favorites_recycler);
