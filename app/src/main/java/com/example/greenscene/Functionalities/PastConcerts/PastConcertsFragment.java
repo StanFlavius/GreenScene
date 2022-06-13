@@ -129,8 +129,10 @@ public class PastConcertsFragment extends Fragment {
                             public void onItemClick(View view, int position) {
                                 PastConcertsFragmentDirections.ActionPastConcertsFragment2ToPastEventDetailsFragment action =
                                         PastConcertsFragmentDirections.actionPastConcertsFragment2ToPastEventDetailsFragment(
-                                          listOfEvents.get(0).getId()
+                                          listOfEvents.get(position).getId()
                                         );
+
+                                navController.navigate(action);
                             }
                         };
                         adapter.updateData(listOfEvents, listener);

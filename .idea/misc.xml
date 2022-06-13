@@ -9,8 +9,11 @@
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/concerts_map_fragment.xml" value="0.17074275362318841" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/favourite_concerts_fragment.xml" value="0.17074275362318841" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/favourite_concerts_item.xml" value="0.17074275362318841" />
+        <entry key="..\:/_AndroidProjects/app/src/main/res/layout/fragment_past_event_details.xml" value="0.25" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/past_concerts_fragment.xml" value="0.17074275362318841" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/past_concerts_item.xml" value="0.18" />
+        <entry key="..\:/_AndroidProjects/app/src/main/res/layout/past_concerts_photo_item.xml" value="0.17074275362318841" />
+        <entry key="..\:/_AndroidProjects/app/src/main/res/layout/past_event_details_fragment.xml" value="0.21" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/settings_fragment.xml" value="0.20427305888483585" />
       </map>
     </option>
