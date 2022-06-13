@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_pastConcertsFragment2_to_settingsFragment2"
             app:destination="@id/settingsFragment2" />
+        <action
+            android:id="@+id/action_pastConcertsFragment2_to_pastEventDetailsFragment"
+            app:destination="@id/pastEventDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
@@ -104,6 +107,15 @@
         <action
             android:id="@+id/action_settingsFragment2_to_favouriteConcertsFragment2"
             app:destination="@id/favouriteConcertsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/pastEventDetailsFragment"
+        android:name="com.example.greenscene.Functionalities.PastEventDetails.PastEventDetailsFragment"
+        android:label="past_event_details_fragment"
+        tools:layout="@layout/past_event_details_fragment" >
+        <argument
+            android:name="eventId"
+            app:argType="string" />
     </fragment>
 
 

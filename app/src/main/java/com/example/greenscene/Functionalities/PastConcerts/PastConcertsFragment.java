@@ -127,8 +127,10 @@ public class PastConcertsFragment extends Fragment {
                         listener = new PastConcertsAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                //final NavController navController = Navigation.findNavController(view);
-
+                                PastConcertsFragmentDirections.ActionPastConcertsFragment2ToPastEventDetailsFragment action =
+                                        PastConcertsFragmentDirections.actionPastConcertsFragment2ToPastEventDetailsFragment(
+                                          listOfEvents.get(0).getId()
+                                        );
                             }
                         };
                         adapter.updateData(listOfEvents, listener);
