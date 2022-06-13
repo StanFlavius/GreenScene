@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_favouriteConcertsFragment2_to_settingsFragment2"
             app:destination="@id/settingsFragment2" />
+        <action
+            android:id="@+id/action_favouriteConcertsFragment2_to_favouriteConcertsDetailsFragment"
+            app:destination="@id/favouriteConcertsDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/pastConcertsFragment2"
@@ -107,6 +110,9 @@
         <action
             android:id="@+id/action_settingsFragment2_to_favouriteConcertsFragment2"
             app:destination="@id/favouriteConcertsFragment2" />
+        <action
+            android:id="@+id/action_settingsFragment2_to_startScreenFragment"
+            app:destination="@id/startScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/pastEventDetailsFragment"
@@ -115,6 +121,30 @@
         tools:layout="@layout/past_event_details_fragment" >
         <argument
             android:name="eventId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteConcertsDetailsFragment"
+        android:name="com.example.greenscene.Functionalities.FavouriteConcertsDetails.FavouriteConcertsDetailsFragment"
+        android:label="favourite_concerts_details_fragment"
+        tools:layout="@layout/favourite_concerts_details_fragment" >
+        <argument
+            android:name="eventId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_favouriteConcertsDetailsFragment_to_mapRouteFavFragment"
+            app:destination="@id/mapRouteFavFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapRouteFavFragment"
+        android:name="com.example.greenscene.Functionalities.MapRouteFav.MapRouteFavFragment"
+        android:label="map_route_fav_fragment"
+        tools:layout="@layout/map_route_fav_fragment" >
+        <argument
+            android:name="latitude"
+            app:argType="string" />
+        <argument
+            android:name="longitude"
             app:argType="string" />
     </fragment>
 

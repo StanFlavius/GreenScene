@@ -19,6 +19,7 @@ import com.example.greenscene.R;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +27,7 @@ public class SettingsFragment extends Fragment {
 
     private SettingsViewModel mViewModel;
     private NavController navController;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
@@ -71,6 +73,15 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 navController.navigate(R.id.action_settingsFragment2_to_pastConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem4 = view.findViewById(R.id.logout);
+        menuItem4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
             }
         });
     }

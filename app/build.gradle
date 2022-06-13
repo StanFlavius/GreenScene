@@ -77,4 +77,8 @@ dependencies {
     //image loading async
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    //google directions
+    implementation 'com.akexorcist:google-direction-library:1.2.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
 }

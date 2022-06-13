@@ -157,7 +157,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
                                         .title(eventTitle)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                                 marker.setTag(x.getId());
-                                System.out.println(marker.getPosition());
+                                //System.out.println(marker.getPosition());
                             }
                         }
                     });

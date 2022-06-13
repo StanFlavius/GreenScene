@@ -63,12 +63,17 @@ public class FavouriteConcertsViewModel extends ViewModel {
 
         cRepo=ConcertsMapRepo.getInstance();
 
+        System.out.println(idQuery);
+        System.out.println(timeNow);
+
         cRepo.getFutureEventsByIds(idQuery, timeNow)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<PredictHQResult>() {
                     @Override
                     public void onSuccess(PredictHQResult predictHQResult) {
+                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                        System.out.println(predictHQResult.getEvents());
                         futureEvents.postValue(predictHQResult);
                     }
 

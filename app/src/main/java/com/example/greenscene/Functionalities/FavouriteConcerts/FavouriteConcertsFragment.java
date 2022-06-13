@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.greenscene.Functionalities.PastConcerts.PastConcertsAdapter;
+import com.example.greenscene.Functionalities.PastConcerts.PastConcertsFragmentDirections;
 import com.example.greenscene.Functionalities.PastConcerts.PastConcertsViewModel;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
@@ -68,6 +69,8 @@ public class FavouriteConcertsFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         navController = Navigation.findNavController(view);
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +115,8 @@ public class FavouriteConcertsFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(this).get(FavouriteConcertsViewModel.class);
         String currentUserId = fAuth.getUid();
+        System.out.println(fAuth.getCurrentUser().getUid());
+        System.out.println(currentUserId);
         mViewModel.getEventIds(currentUserId);
 
         mViewModel.getEventIds().observe((LifecycleOwner) requireContext(), new Observer<List<String>>() {
@@ -119,12 +124,17 @@ public class FavouriteConcertsFragment extends Fragment {
             public void onChanged(List<String> strings) {
                 String idQuery = "";
                 List<String> userEventIds = mViewModel.getEventIds().getValue();
-                for(int i=0;i<userEventIds.size()-1;i++){
+                System.out.println(userEventIds);
+                for(int i=0;i<=userEventIds.size()-1;i++){
                     idQuery += userEventIds.get(i) + ",";
                 }
-                if(userEventIds.size()>0){
-                    idQuery += userEventIds.get(0);
-                }
+//                if(userEventIds.size()>0){
+//                    idQuery += userEventIds.get(0);
+//                }
+
+                System.out.println(currentUserId);
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                System.out.println(idQuery);
 
                 mViewModel.getFavorites(idQuery);
 
@@ -135,8 +145,12 @@ public class FavouriteConcertsFragment extends Fragment {
                         listener = new FavouriteConcertsAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                //final NavController navController = Navigation.findNavController(view);
+                                FavouriteConcertsFragmentDirections.ActionFavouriteConcertsFragment2ToFavouriteConcertsDetailsFragment action =
+                                        FavouriteConcertsFragmentDirections.actionFavouriteConcertsFragment2ToFavouriteConcertsDetailsFragment(
+                                                listOfEvents.get(position).getId()
+                                        );
 
+                                navController.navigate(action);
                             }
                         };
                         adapter.updateData(listOfEvents, listener);

@@ -37,10 +37,10 @@ public class ConcertsMapRepo {
 
     public Single<PredictHQResult> getAreaConcertList(){
         ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
-        Double radius = 10.0;
+        Double radius = 200.0;
         String unit = "km";
         String within = radius.toString() + unit + "@" + BUCHAREST_LATITUDE.toString() + "," + BUCHAREST_LONGITUDE.toString();
-        Integer limit = 10;
+        Integer limit = 30;
         return apiPredictHQInterface.getAreaConcertList(APIKEY_HQ, accept, "concerts", within, limit);
     }
 
