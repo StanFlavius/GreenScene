@@ -77,7 +77,7 @@ public class PastConcertsAdapter extends RecyclerView.Adapter<PastConcertsAdapte
             super(itemView);
 
             itemView.setOnClickListener(this);
-            //TODO:
+
             title = itemView.findViewById(R.id.titlePastItem);
             description = itemView.findViewById(R.id.desciptionPastItem);
             start = itemView.findViewById(R.id.startPastItem);

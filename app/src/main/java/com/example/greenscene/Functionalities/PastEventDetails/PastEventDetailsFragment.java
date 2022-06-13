@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PastEventDetailsFragment extends Fragment {
     private String currentEventId;
@@ -68,6 +72,11 @@ public class PastEventDetailsFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(PastEventDetailsViewModel.class);
         mViewModel.init(currentEventId);
 
+        int numberOfColumns = 3;
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
+        PastEventDetailsAdapter adapter = new PastEventDetailsAdapter(new ArrayList<>(), getContext());
+        recyclerView.setAdapter(adapter);
+
         mViewModel.getCurrentEvent().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
             @Override
             public void onChanged(PredictHQResult predictHQResult) {
@@ -85,7 +94,15 @@ public class PastEventDetailsFragment extends Fragment {
 
                 startTextView.setText(formatedHour + " / " + formatedDate);
 
-                //TODO: update recyclerview
+                mViewModel.initImagesURLs(currentEventId);
+
+                mViewModel.getImageURLs().observe((LifecycleOwner) getContext(), new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> resultURLs) {
+                        System.out.println("SUUUUUUUUUUUUUUU "+resultURLs.size());
+                        adapter.updateData(resultURLs, null);
+                    }
+                });
             }
         });
     }

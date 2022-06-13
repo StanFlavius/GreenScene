@@ -47,8 +47,6 @@ public class PastConcertsViewModel extends ViewModel {
                         }
                     }
                 });
-
-        //facem lista tuturor evenimentelor de la favorite ale unui anumit user
     }
 
     public LiveData<List<String>> getEventIds(){
