@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +47,10 @@ public class PastEventDetailsFragment extends Fragment {
     private TextView descriptionTextView;
     private TextView startTextView;
     private RecyclerView recyclerView;
-    private Button addPhotoButton;
+    private Button addGalleryButton;
+    private Button addCameraButton;
     private Uri imageUri;
+    private Bitmap photoTaken;
 
     private PastEventDetailsViewModel mViewModel;
     private FirebaseAuth fAuth;
@@ -85,7 +89,8 @@ public class PastEventDetailsFragment extends Fragment {
         descriptionTextView = view.findViewById(R.id.pastDetailsDescription);
         startTextView = view.findViewById(R.id.pastDetailsStart);
         recyclerView = view.findViewById(R.id.pastDetailsGallery);
-        addPhotoButton = view.findViewById(R.id.addPhotoButton);
+        addGalleryButton = view.findViewById(R.id.addGaleryButton);
+        addCameraButton = view.findViewById(R.id.addCameraButton);
 
         mViewModel = ViewModelProviders.of(this).get(PastEventDetailsViewModel.class);
         mViewModel.init(currentEventId);
@@ -128,13 +133,22 @@ public class PastEventDetailsFragment extends Fragment {
             }
         });
 
-        addPhotoButton.setOnClickListener(new View.OnClickListener() {
+        addGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent galleryIntent = new Intent();
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, 2);
+            }
+        });
+
+        addCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent();
+                cameraIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 3);
             }
         });
     }
@@ -145,7 +159,13 @@ public class PastEventDetailsFragment extends Fragment {
 
         if(requestCode == 2 && resultCode == Activity.RESULT_OK && data != null) {
             imageUri = data.getData();
-            imageRepo.uploadImage(imageUri, this.currentEventId, fAuth.getUid(), getFileExtension(imageUri));
+            imageRepo.uploadImageByUri(imageUri, this.currentEventId, fAuth.getUid(), getFileExtension(imageUri));
+            return;
+        }
+
+        if(requestCode == 3 && resultCode == Activity.RESULT_OK && data != null) {
+            photoTaken = (Bitmap) data.getExtras().get("data");
+            imageRepo.uploadImageByBitmap(photoTaken, this.currentEventId, fAuth.getUid(), "jpeg");
         }
     }
 

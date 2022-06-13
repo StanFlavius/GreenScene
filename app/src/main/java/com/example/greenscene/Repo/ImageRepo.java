@@ -1,5 +1,6 @@
 package com.example.greenscene.Repo;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.example.greenscene.Models.Database.PhotoElement;
@@ -9,6 +10,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 public class ImageRepo {
@@ -25,10 +27,35 @@ public class ImageRepo {
 
     private ImageRepo() {}
 
-    public void uploadImage(Uri imageUri, String eventId, String userId, String fileExtension) {
+    public void uploadImageByUri(Uri imageUri, String eventId, String userId, String fileExtension) {
 
         StorageReference fileRef = storageReference.child(System.currentTimeMillis()+"-"+userId+"."+fileExtension);
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String imageId = uri.toString();
+                        String imageUri = uri.toString();
+                        PhotoElement elem = new PhotoElement(eventId, imageId, userId);
+
+                        db.collection("Pictures")
+                                .document(UUID.randomUUID().toString())
+                                .set(elem);
+                    }
+                });
+            }
+        });
+    }
+
+    public void uploadImageByBitmap(Bitmap bitmap, String eventId, String userId, String fileExtension) {
+        StorageReference fileRef = storageReference.child(System.currentTimeMillis()+"-"+userId+"."+fileExtension);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+        byte[] data = baos.toByteArray();
+
+        fileRef.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
