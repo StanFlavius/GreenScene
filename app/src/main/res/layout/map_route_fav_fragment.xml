@@ -59,9 +59,6 @@
         <!--            app:maxImageSize="50dp" />-->
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -71,20 +68,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@android:color/transparent"
-                app:fabCradleRoundedCornerRadius="50dp"
-                app:fabCradleMargin="10dp">
+                app:backgroundTint="@color/verdish"
+                app:fabCradleMargin="10dp"
+                app:fabCradleRoundedCornerRadius="50dp">
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/bottom_navigation_view"
-                    app:menu="@menu/menu"
-                    android:background="@android:color/transparent"
-                    android:layout_marginRight="20dp"
-                    app:labelVisibilityMode="labeled"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/verdish"
                     app:itemIconTint="@color/bottom_item_background"
                     app:itemTextColor="@color/bottom_item_background"
-                    >
+                    app:labelVisibilityMode="labeled"
+                    app:menu="@menu/menu">
 
                 </com.google.android.material.bottomnavigation.BottomNavigationView>
 
@@ -94,7 +91,7 @@
                 android:id="@+id/homeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                style="@style/buttonHome"
                 android:src="@drawable/ic_home"
                 app:layout_anchor="@id/nav_bar"
                 app:maxImageSize="50dp" />

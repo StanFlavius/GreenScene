@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +9,15 @@
 
     <TextView
         android:id="@+id/pastDetailsTitle"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        style="@style/MyText"
+        android:layout_width="241dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="85dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,9 +25,15 @@
 
     <TextView
         android:id="@+id/pastDetailsDescription"
+        style="@style/MyText"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="63dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="103dp"
+        android:layout_marginEnd="56dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +41,15 @@
 
     <TextView
         android:id="@+id/pastDetailsStart"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        style="@style/MyText"
+        android:layout_width="295dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="76dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +59,8 @@
         android:id="@+id/pastDetailsGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="434dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -49,31 +69,33 @@
         app:layout_constraintVertical_bias="0.06" />
 
     <Button
+        style="@style/button"
         android:id="@+id/addGaleryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="145dp"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginLeft="80dp"
         android:text="Choose Photo"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pastDetailsStart" />
 
     <Button
+        style="@style/button"
         android:id="@+id/addCameraButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="50dp"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="308dp"
+        android:layout_marginLeft="80dp"
         android:text="Take Photo"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/addGaleryButton"
         app:layout_constraintTop_toBottomOf="@+id/pastDetailsStart" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -115,4 +137,4 @@
             app:maxImageSize="50dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

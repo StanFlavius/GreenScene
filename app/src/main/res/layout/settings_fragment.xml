@@ -6,66 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".Functionalities.Settings.SettingsFragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/changePassSett"
+        style="@style/button"
+        android:layout_width="180dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="68dp"
+        android:text="Change Password"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/changePassSett"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="169dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="184dp"
-            android:text="Change Password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
 
-<!--        <include-->
+    <!--        <include-->
 <!--            android:id="@+id/nav"-->
 <!--            layout="@layout/bottom_nav" />-->
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/nav_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@android:color/transparent"
-                app:fabCradleRoundedCornerRadius="50dp"
-                app:fabCradleMargin="10dp">
+<!--            <com.google.android.material.bottomappbar.BottomAppBar-->
+<!--                android:id="@+id/nav_bar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                app:backgroundTint="@color/verdish"-->
+<!--                app:fabCradleMargin="10dp"-->
+<!--                app:fabCradleRoundedCornerRadius="50dp">-->
 
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bottom_navigation_view"
-                    app:menu="@menu/menu"
-                    android:background="@android:color/transparent"
-                    android:layout_marginRight="20dp"
-                    app:labelVisibilityMode="labeled"
-                    app:itemIconTint="@color/bottom_item_background"
-                    app:itemTextColor="@color/bottom_item_background"
-                    >
+<!--                <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                    android:id="@+id/bottom_navigation_view"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:background="@color/verdish"-->
+<!--                    app:itemIconTint="@color/bottom_item_background"-->
+<!--                    app:itemTextColor="@color/bottom_item_background"-->
+<!--                    app:labelVisibilityMode="labeled"-->
+<!--                    app:menu="@menu/menu">-->
 
-                </com.google.android.material.bottomnavigation.BottomNavigationView>
+<!--                </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
-            </com.google.android.material.bottomappbar.BottomAppBar>
+<!--            </com.google.android.material.bottomappbar.BottomAppBar>-->
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/homeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_home"
-                app:layout_anchor="@id/nav_bar"
-                app:maxImageSize="50dp" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </androidx.cardview.widget.CardView>
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/homeButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                style="@style/buttonHome"-->
+<!--                android:src="@drawable/ic_home"-->
+<!--                app:layout_anchor="@id/nav_bar"-->
+<!--                app:maxImageSize="50dp" />-->
+<!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

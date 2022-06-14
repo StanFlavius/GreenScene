@@ -63,6 +63,7 @@ public class PastEventDetailsFragment extends Fragment {
     private PastEventDetailsViewModel mViewModel;
     private FirebaseAuth fAuth;
     private ImageRepo imageRepo;
+    final int numberOfColumns = 3;
 
     public static PastEventDetailsFragment newInstance() {
         return new PastEventDetailsFragment();
@@ -147,7 +148,7 @@ public class PastEventDetailsFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(PastEventDetailsViewModel.class);
         mViewModel.init(currentEventId);
 
-        int numberOfColumns = 3;
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
         PastEventDetailsAdapter adapter = new PastEventDetailsAdapter(new ArrayList<>(), getContext());
         recyclerView.setAdapter(adapter);
