@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import com.example.greenscene.Functionalities.FavouriteConcerts.FavouriteConcertsFragmentDirections;
 import com.example.greenscene.Functionalities.PastEventDetails.PastEventDetailsFragmentArgs;
 import com.example.greenscene.Functionalities.PastEventDetails.PastEventDetailsViewModel;
+import com.example.greenscene.Functionalities.Utils.Utils;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
@@ -35,8 +37,11 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
     private FavouriteConcertsDetailsViewModel mViewModel;
     private String currentEventId;
     private FirebaseAuth fAuth;
-    private TextView textView;
+    private TextView titleTextView;
+    private TextView descriptionTextView;
+    private TextView startTextView;
     private Button buttonToMap;
+    private Button buttonShare;
     private NavController navController;
 
     public static FavouriteConcertsDetailsFragment newInstance() {
@@ -66,6 +71,7 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
             this.currentEventId = args.getEventId();
         }
 
+        buttonShare = view.findViewById(R.id.buttonShare);
         navController = Navigation.findNavController(view);
 
         fAuth = FirebaseAuth.getInstance();
@@ -78,8 +84,19 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
             public void onChanged(PredictHQResult predictHQResult) {
                 Event currentEvent = predictHQResult.getEvents().get(0);
 
-                textView = view.findViewById(R.id.favElemTitle);
-                textView.setText(currentEvent.getTitle());
+                titleTextView = view.findViewById(R.id.favElemTitle);
+                titleTextView.setText(currentEvent.getTitle());
+
+                descriptionTextView = view.findViewById(R.id.favElemDescription);
+                startTextView = view.findViewById(R.id.favElemStart);
+
+                if(currentEvent.getDescription().length()>3){
+                    descriptionTextView.setText(currentEvent.getDescription());
+                } else {
+                    descriptionTextView.setText("There is no desciption available for this event.");
+                }
+
+                startTextView.setText(Utils.prettyFormatDate(currentEvent.getStart()));
 
                 buttonToMap = view.findViewById(R.id.buttonToMap);
                 buttonToMap.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +109,16 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
                                 );
 
                         navController.navigate(action);
+                    }
+                });
+
+                buttonShare.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                        String eventData = currentEvent.getTitle() + " @ " + currentEvent.getStart();
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,eventData);
+                        startActivity(Intent.createChooser(sendIntent, "Share Event!"));
                     }
                 });
             }

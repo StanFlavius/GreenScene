@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.greenscene.Functionalities.Utils.Utils;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
@@ -111,11 +112,12 @@ public class PastEventDetailsFragment extends Fragment {
                     descriptionTextView.setText("There is no description available for this event.");
                 }
 
-                String rawDate = currentEvent.getStart();
+                /*String rawDate = currentEvent.getStart();
                 String formatedDate = rawDate.split("T")[0];
                 String formatedHour = rawDate.split("T")[1].substring(0,6);
 
-                startTextView.setText(formatedHour + " / " + formatedDate);
+                startTextView.setText(formatedHour + " / " + formatedDate);*/
+                startTextView.setText(Utils.prettyFormatDate(currentEvent.getStart()));
 
                 mViewModel.initImagesURLs(currentEventId);
 

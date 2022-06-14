@@ -23,4 +23,10 @@ public class Utils {
         return vibrantLightColorList[idx];
     }
 
+    public static String prettyFormatDate(String rawDate) {
+        String formatedDate = rawDate.split("T")[0];
+        String formatedHour = rawDate.split("T")[1].substring(0,6);
+
+        return formatedHour + " / " + formatedDate;
+    }
 }

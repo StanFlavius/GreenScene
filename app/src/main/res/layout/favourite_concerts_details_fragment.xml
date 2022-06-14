@@ -10,23 +10,57 @@
         android:id="@+id/favElemTitle"
         android:layout_width="241dp"
         android:layout_height="59dp"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="159dp"
-        android:layout_marginEnd="190dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="85dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/favElemDescription"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="56dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favElemTitle" />
+
+    <TextView
+        android:id="@+id/favElemStart"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="156dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favElemDescription" />
+
     <Button
         android:id="@+id/buttonToMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="172dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="103dp"
+        android:text="Get Route"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favElemTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/favElemStart" />
+
+    <Button
+        android:id="@+id/buttonShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="103dp"
+        android:layout_marginEnd="49dp"
+        android:text="Share Event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonToMap"
+        app:layout_constraintTop_toBottomOf="@+id/favElemStart" />
 </androidx.constraintlayout.widget.ConstraintLayout>
