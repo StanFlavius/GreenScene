@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,7 +113,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        Button buttonBack = view.findViewById(R.id.buttonTestBack);
+        TextView buttonBack = view.findViewById(R.id.buttonTestBack);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +121,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        Button buttonGoogle = view.findViewById(R.id.buttonToLoginGoogle);
+        ImageView buttonGoogle = view.findViewById(R.id.buttonToLoginGoogle);
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()

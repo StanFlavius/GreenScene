@@ -8,80 +8,126 @@
     tools:context=".Functionalities.Login.LoginFragment">
 
 
-    <Button
-        android:id="@+id/buttonTestBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
-        android:text="Back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/buttonTestBack"-->
+<!--        style="@style/button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Back"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="600dp" />-->
 
     <EditText
         android:id="@+id/emailLogin"
         android:layout_width="500px"
-        android:layout_height="100px"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="161dp"
+        android:layout_height="125px"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="192dp"
         android:hint="    Email"
-        android:text="lucian.trepteanu@gmail.com"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/passwordLogin"
         android:layout_width="500px"
-        android:layout_height="100px"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="96dp"
+        android:layout_height="125px"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="188dp"
         android:hint="    Password"
-        android:text="12345678"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailLogin" />
 
-    <Button
-        android:id="@+id/buttonToLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="159dp"
-        android:text="Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
+    <!--    <Button-->
+<!--        android:id="@+id/buttonToLoginGoogle"-->
+<!--        style="@style/button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="151dp"-->
+<!--        android:layout_marginEnd="159dp"-->
+<!--        android:text="google"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="585dp" />-->
 
     <Button
-        android:id="@+id/buttonToLoginGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="61dp"
+        android:id="@+id/buttonToLogin"
+        style="@style/button"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="159dp"
-        android:text="google"
+        android:text="LOGIN"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/changePass" />
 
     <TextView
         android:id="@+id/changePass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="169dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="184dp"
-        android:text="Change Password"
+        android:text="Forgot Password?"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="181dp"
+        style="@style/text"
+        android:text="LOGIN"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/buttonToLoginGoogle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="20dp"
+        android:layout_marginStart="181dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="343dp"
+        android:src="@drawable/google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToLogin" />
+
+    <TextView
+        android:id="@+id/buttonTestBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="179dp"
+        style="@style/text"
+        android:textSize="18dp"
+        android:text="You don't have an account? Go to register!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToLoginGoogle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

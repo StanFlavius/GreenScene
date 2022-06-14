@@ -8,6 +8,8 @@ import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 
 public class ConcertsMapRepo {
@@ -15,6 +17,7 @@ public class ConcertsMapRepo {
     public static final Double BUCHAREST_LATITUDE = 44.435241;
     public static final Double BUCHAREST_LONGITUDE = 26.102803;
     String accept = new String("application/json");
+
 
     private static ConcertsMapRepo instance;
     private List<Event> dataSet = new ArrayList<>();
@@ -26,7 +29,8 @@ public class ConcertsMapRepo {
         return instance;
     }
 
-    private ConcertsMapRepo() {}
+    @Inject
+    public ConcertsMapRepo() {}
 
     //Fixed geolocation position
     //TODO: custom latitude and longitude?

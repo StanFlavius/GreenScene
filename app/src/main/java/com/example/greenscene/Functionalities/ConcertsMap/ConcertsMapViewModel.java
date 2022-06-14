@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -23,12 +24,19 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
+@HiltViewModel
 public class ConcertsMapViewModel extends ViewModel {
     private MutableLiveData<PredictHQResult> concertList;
     private MutableLiveData<PredictHQResult> event;
     private ConcertsMapRepo cRepo;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    @Inject
+    public ConcertsMapViewModel(ConcertsMapRepo cRepo) {
+        this.cRepo = cRepo;
+    }
 
     public void init(){
         concertList = new MutableLiveData<PredictHQResult>();

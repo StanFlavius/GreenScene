@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -82,4 +83,8 @@ dependencies {
     //google directions
     implementation 'com.akexorcist:google-direction-library:1.2.1'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    implementation "com.google.dagger:hilt-android:2.33-beta"
+    implementation 'androidx.hilt:hilt-work:1.0.0-beta01'
+    annotationProcessor"com.google.dagger:hilt-compiler:2.33-beta"
 }

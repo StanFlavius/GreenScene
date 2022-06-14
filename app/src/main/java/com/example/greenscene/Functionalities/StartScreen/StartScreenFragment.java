@@ -62,12 +62,12 @@ public class StartScreenFragment extends Fragment {
             }
         });
 
-        Button buttonTest = view.findViewById(R.id.buttonTestAPI);
-        buttonTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_startScreenFragment_to_concertsMapFragment);
-            }
-        });
+//        Button buttonTest = view.findViewById(R.id.buttonTestAPI);
+//        buttonTest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_startScreenFragment_to_concertsMapFragment);
+//            }
+//        });
     }
 }

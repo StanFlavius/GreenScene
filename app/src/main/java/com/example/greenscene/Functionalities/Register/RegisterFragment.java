@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.greenscene.Models.Authentication.User;
@@ -76,7 +78,7 @@ public class RegisterFragment extends Fragment {
 
         NavController navController = Navigation.findNavController(view);
 
-        Button button = view.findViewById(R.id.buttonTestBack);
+        TextView button = view.findViewById(R.id.buttonTestBack);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,7 +172,7 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        Button buttonGoogle = view.findViewById(R.id.registerGoogle);
+        ImageView buttonGoogle = view.findViewById(R.id.registerGoogle);
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
