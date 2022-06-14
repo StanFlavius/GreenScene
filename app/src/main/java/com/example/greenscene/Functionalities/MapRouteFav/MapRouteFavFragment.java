@@ -60,6 +60,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MapRouteFavFragment extends Fragment implements OnMapReadyCallback {
 
     private MapRouteFavViewModel mViewModel;

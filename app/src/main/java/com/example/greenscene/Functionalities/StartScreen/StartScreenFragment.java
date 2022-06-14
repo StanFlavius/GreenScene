@@ -19,6 +19,9 @@ import com.example.greenscene.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class StartScreenFragment extends Fragment {
 
     private StartScreenViewModel mViewModel;

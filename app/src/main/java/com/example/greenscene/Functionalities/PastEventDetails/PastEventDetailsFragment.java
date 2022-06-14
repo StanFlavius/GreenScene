@@ -46,6 +46,9 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PastEventDetailsFragment extends Fragment {
     private String currentEventId;
     private TextView titleTextView;
@@ -145,11 +148,11 @@ public class PastEventDetailsFragment extends Fragment {
         mViewModel.init(currentEventId);
 
         int numberOfColumns = 3;
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), numberOfColumns));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
         PastEventDetailsAdapter adapter = new PastEventDetailsAdapter(new ArrayList<>(), getContext());
         recyclerView.setAdapter(adapter);
 
-        mViewModel.getCurrentEvent().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+        mViewModel.getCurrentEvent().observe((LifecycleOwner) getActivity(), new Observer<PredictHQResult>() {
             @Override
             public void onChanged(PredictHQResult predictHQResult) {
                 Event currentEvent = predictHQResult.getEvents().get(0);
@@ -169,7 +172,7 @@ public class PastEventDetailsFragment extends Fragment {
 
                 mViewModel.initImagesURLs(currentEventId);
 
-                mViewModel.getImageURLs().observe((LifecycleOwner) getContext(), new Observer<List<String>>() {
+                mViewModel.getImageURLs().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
                     @Override
                     public void onChanged(List<String> resultURLs) {
                         adapter.updateData(resultURLs, new PastEventDetailsAdapter.OnItemClickListener() {

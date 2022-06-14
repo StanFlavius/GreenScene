@@ -19,16 +19,25 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@HiltViewModel
 public class PastConcertsViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private MutableLiveData<List<String>> eventIds;
     private MutableLiveData<PredictHQResult> pastEvents;
     private ConcertsMapRepo cRepo;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    @Inject
+    public PastConcertsViewModel(ConcertsMapRepo cRepo) {
+        this.cRepo = cRepo;
+    }
 
     public void getEventIds(String userId){
         eventIds = new MutableLiveData<>();

@@ -10,17 +10,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@HiltViewModel
 public class RegisterViewModel extends ViewModel {
     private MutableLiveData<List<String>> emails;
     private RegisterRepo registerRepo;
 
+    @Inject
+    public RegisterViewModel(RegisterRepo registerRepo) {
+        this.registerRepo = registerRepo;
+    }
+
     public void init(){
         emails = new MutableLiveData<>();
-        registerRepo = RegisterRepo.getInstance();
         registerRepo.getAllEmails()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

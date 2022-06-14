@@ -46,6 +46,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.Executor;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class LoginFragment extends Fragment {
 
     private NavController navController;

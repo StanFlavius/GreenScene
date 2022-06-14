@@ -30,6 +30,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SettingsFragment extends Fragment {
 
     private SettingsViewModel mViewModel;

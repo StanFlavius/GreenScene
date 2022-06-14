@@ -43,6 +43,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FavouriteConcertsFragment extends Fragment {
     private List<Event> events;
     private List<Event> futureEventsList;
@@ -158,7 +161,7 @@ public class FavouriteConcertsFragment extends Fragment {
         System.out.println(currentUserId);
         mViewModel.getEventIds(currentUserId);
 
-        mViewModel.getEventIds().observe((LifecycleOwner) requireContext(), new Observer<List<String>>() {
+        mViewModel.getEventIds().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
                 String idQuery = "";
@@ -177,7 +180,7 @@ public class FavouriteConcertsFragment extends Fragment {
 
                 mViewModel.getFavorites(idQuery);
 
-                mViewModel.getFutureEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+                mViewModel.getFutureEvents().observe((LifecycleOwner) getActivity(), new Observer<PredictHQResult>() {
                     @Override
                     public void onChanged(PredictHQResult predictHQResult) {
                         List<Event> listOfEvents = predictHQResult.getEvents();

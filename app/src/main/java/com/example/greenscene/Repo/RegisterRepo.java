@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 
 public class RegisterRepo {
@@ -25,6 +28,11 @@ public class RegisterRepo {
             instance = new RegisterRepo();
         }
         return instance;
+    }
+
+    @Inject
+    public RegisterRepo(){
+
     }
 
     public Single<List<String>> getAllEmails(){

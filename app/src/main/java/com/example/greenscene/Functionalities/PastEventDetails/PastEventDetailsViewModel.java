@@ -16,20 +16,27 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@HiltViewModel
 public class PastEventDetailsViewModel extends ViewModel {
     private ConcertsMapRepo cRepo;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private MutableLiveData<PredictHQResult> currentEvent;
     private MutableLiveData<List<String>> imageURLs;
 
+    @Inject
+    public PastEventDetailsViewModel(ConcertsMapRepo cRepo) {
+        this.cRepo = cRepo;
+    }
+
     public void init(String eventId) {
         currentEvent = new MutableLiveData<>();
-        cRepo = ConcertsMapRepo.getInstance();
-
         cRepo.getEventById(eventId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

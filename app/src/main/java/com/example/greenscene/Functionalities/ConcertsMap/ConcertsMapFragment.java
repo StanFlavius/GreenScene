@@ -211,7 +211,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
         mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);
         mViewModel.init(marker.getTag().toString());
 
-        mViewModel.getEvent().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+        mViewModel.getEvent().observe((LifecycleOwner) getActivity(), new Observer<PredictHQResult>() {
             @Override
             public void onChanged(PredictHQResult predictHQResult) {
                 TextView titleTextView = mView.findViewById(R.id.titleTextView);

@@ -34,6 +34,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FavouriteConcertsDetailsFragment extends Fragment {
 
     private FavouriteConcertsDetailsViewModel mViewModel;
@@ -123,7 +126,7 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(FavouriteConcertsDetailsViewModel.class);
         mViewModel.init(currentEventId);
 
-        mViewModel.getCurrentEvent().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+        mViewModel.getCurrentEvent().observe((LifecycleOwner) getActivity(), new Observer<PredictHQResult>() {
             @Override
             public void onChanged(PredictHQResult predictHQResult) {
                 Event currentEvent = predictHQResult.getEvents().get(0);

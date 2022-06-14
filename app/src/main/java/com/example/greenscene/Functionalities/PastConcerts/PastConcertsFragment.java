@@ -35,6 +35,9 @@ import org.w3c.dom.ls.LSOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PastConcertsFragment extends Fragment {
     private PastConcertsViewModel mViewModel;
     private NavController navController;
@@ -136,7 +139,7 @@ public class PastConcertsFragment extends Fragment {
         String currentUserId = fAuth.getUid();
         mViewModel.getEventIds(currentUserId);
 
-        mViewModel.getEventIds().observe((LifecycleOwner) requireContext(), new Observer<List<String>>() {
+        mViewModel.getEventIds().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
                 String idQuery = "";
@@ -150,7 +153,7 @@ public class PastConcertsFragment extends Fragment {
 
                 mViewModel.getFavorites(idQuery);
 
-                mViewModel.getPastEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+                mViewModel.getPastEvents().observe((LifecycleOwner) getActivity(), new Observer<PredictHQResult>() {
                     @Override
                     public void onChanged(PredictHQResult predictHQResult) {
                         List<Event> listOfEvents = predictHQResult.getEvents();

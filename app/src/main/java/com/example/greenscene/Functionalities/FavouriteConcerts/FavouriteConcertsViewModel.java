@@ -17,16 +17,25 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
+@HiltViewModel
 public class FavouriteConcertsViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private MutableLiveData<List<String>> eventIds;
     private MutableLiveData<PredictHQResult> futureEvents;
     private ConcertsMapRepo cRepo;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    @Inject
+    public FavouriteConcertsViewModel(ConcertsMapRepo cRepo) {
+        this.cRepo = cRepo;
+    }
 
     public void getEventIds(String userId){
         eventIds = new MutableLiveData<>();
@@ -45,7 +54,6 @@ public class FavouriteConcertsViewModel extends ViewModel {
                         }
                     }
                 });
-        //facem lista tuturor evenimentelor de la favorite ale unui anumit user
     }
 
     public LiveData<List<String>> getEventIds(){
@@ -61,18 +69,12 @@ public class FavouriteConcertsViewModel extends ViewModel {
         LocalDateTime now = LocalDateTime.now();
         String timeNow = now.toString();
 
-        cRepo=ConcertsMapRepo.getInstance();
-
-        System.out.println(idQuery);
-        System.out.println(timeNow);
-
         cRepo.getFutureEventsByIds(idQuery, timeNow)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<PredictHQResult>() {
                     @Override
                     public void onSuccess(PredictHQResult predictHQResult) {
-                        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                         System.out.println(predictHQResult.getEvents());
                         futureEvents.postValue(predictHQResult);
                     }

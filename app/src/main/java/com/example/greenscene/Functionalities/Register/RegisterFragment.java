@@ -46,6 +46,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RegisterFragment extends Fragment {
 
     private NavController navController;
@@ -115,7 +118,7 @@ public class RegisterFragment extends Fragment {
                 }
 
                 mViewModel.init();
-                mViewModel.getEmails().observe((LifecycleOwner) requireContext(), new Observer<List<String>>() {
+                mViewModel.getEmails().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
                     @Override
                     public void onChanged(List<String> emails) {
                         Boolean checkEmail = false;
