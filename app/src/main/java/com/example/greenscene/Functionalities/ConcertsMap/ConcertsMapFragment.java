@@ -175,7 +175,7 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
                     LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
 
-                    mViewModel.getEvents().observe((LifecycleOwner) requireContext(), new Observer<PredictHQResult>() {
+                    mViewModel.getEvents().observe((LifecycleOwner) getActivity(), new Observer<PredictHQResult>() {
                         @Override
                         public void onChanged(PredictHQResult res) {
                             for(Event x : res.getEvents()) {

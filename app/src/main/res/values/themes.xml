@@ -44,4 +44,8 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="MyText" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
