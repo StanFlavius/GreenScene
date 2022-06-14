@@ -36,6 +36,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOTU5_Eu2v1catik8wYJ9DhInyjXIU8uI"/>
 
+        <service android:name=".Functionalities.Notifications.GreenSceneMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

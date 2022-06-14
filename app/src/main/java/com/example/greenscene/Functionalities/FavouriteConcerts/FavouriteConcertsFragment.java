@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,14 @@ import com.example.greenscene.Functionalities.PastConcerts.PastConcertsViewModel
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +49,7 @@ public class FavouriteConcertsFragment extends Fragment {
     private FavouriteConcertsAdapter adapter;
     private FavouriteConcertsAdapter.OnItemClickListener listener;
     private FirebaseAuth fAuth;
+    private FirebaseMessaging fMessage;
 
     private NavController navController;
     private FavouriteConcertsViewModel mViewModel;
@@ -106,6 +112,16 @@ public class FavouriteConcertsFragment extends Fragment {
         });
 
         fAuth = FirebaseAuth.getInstance();
+        fMessage = FirebaseMessaging.getInstance();
+
+        fMessage.getToken()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Log.d("TOKENIZE", s);
+                    }
+                });
+
         recyclerView = view.findViewById(R.id.future_favourite_recycler);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
