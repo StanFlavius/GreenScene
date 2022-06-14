@@ -130,26 +130,31 @@ public class RegisterFragment extends Fragment {
                         if (! checkEmail){
                             mAuth.createUserWithEmailAndPassword(emailData, passwordData).addOnCompleteListener((OnCompleteListener<AuthResult>) task ->{
                                 if (task.isSuccessful()){
-                                    FirebaseUser userC = mAuth.getCurrentUser();
-                                    User user = new User(userC.getUid(), emailData, firstNameData, lastNameData, passwordData);
+                                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                            FirebaseUser userC = mAuth.getCurrentUser();
+                                            User user = new User(userC.getUid(), emailData, firstNameData, lastNameData, passwordData);
 
-                                    db.collection("Users")
-                                            .document(userC.getUid())
-                                            .set(user)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d("ADDED", "User was added");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull @NotNull Exception e) {
-                                                    Log.d("FAILED", e.getLocalizedMessage());
-                                                }
-                                            });
+                                            db.collection("Users")
+                                                    .document(userC.getUid())
+                                                    .set(user)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Log.d("ADDED", "User was added");
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull @NotNull Exception e) {
+                                                            Log.d("FAILED", e.getLocalizedMessage());
+                                                        }
+                                                    });
 
-                                    navController.navigate(R.id.action_registerFragment2_to_loginFragment2);
+                                            navController.navigate(R.id.action_registerFragment2_to_loginFragment2);
+                                        }
+                                    });
                                 }
                                 else{
 
