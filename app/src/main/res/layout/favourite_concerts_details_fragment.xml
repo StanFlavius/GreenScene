@@ -4,15 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/background"
     tools:context=".Functionalities.FavouriteConcertsDetails.FavouriteConcertsDetailsFragment">
 
     <TextView
         android:id="@+id/favElemTitle"
+        style="@style/MyText"
         android:layout_width="241dp"
         android:layout_height="59dp"
         android:layout_marginStart="85dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="85dp"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +25,10 @@
 
     <TextView
         android:id="@+id/favElemDescription"
+        style="@style/MyText"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
@@ -32,42 +41,51 @@
 
     <TextView
         android:id="@+id/favElemStart"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        style="@style/MyText"
+        android:layout_width="295dp"
+        android:layout_height="32dp"
         android:layout_marginStart="155dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="156dp"
+        android:gravity="center"
         android:text="TextView"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favElemDescription" />
 
     <Button
         android:id="@+id/buttonToMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="103dp"
+        style="@style/button"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="96dp"
         android:text="Get Route"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favElemStart" />
 
     <Button
         android:id="@+id/buttonShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="103dp"
-        android:layout_marginEnd="49dp"
+        style="@style/button"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="96dp"
         android:text="Share Event"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonToMap"
-        app:layout_constraintTop_toBottomOf="@+id/favElemStart" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToMap" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -77,20 +95,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@android:color/transparent"
-            app:fabCradleRoundedCornerRadius="50dp"
-            app:fabCradleMargin="10dp">
+            app:backgroundTint="@color/verdish"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="50dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/bottom_navigation_view"
-                app:menu="@menu/menu"
-                android:background="@android:color/transparent"
-                android:layout_marginRight="20dp"
-                app:labelVisibilityMode="labeled"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:background="@color/verdish"
                 app:itemIconTint="@color/bottom_item_background"
                 app:itemTextColor="@color/bottom_item_background"
-                >
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/menu">
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
@@ -100,9 +118,10 @@
             android:id="@+id/homeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            style="@style/buttonHome"
             android:src="@drawable/ic_home"
             app:layout_anchor="@id/nav_bar"
             app:maxImageSize="50dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
