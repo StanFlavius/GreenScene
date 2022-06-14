@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/_AndroidProject/app/src/main/res/layout/favourite_concerts_fragment.xml" value="0.17074275362318841" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/bottom_nav.xml" value="0.17074275362318841" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/concert_popout.xml" value="0.203125" />
         <entry key="..\:/_AndroidProjects/app/src/main/res/layout/concert_popup.xml" value="0.17074275362318841" />

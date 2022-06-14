@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.greenscene.Functionalities.PastConcerts.PastConcertsAdapter;
 import com.example.greenscene.Functionalities.PastConcerts.PastConcertsFragmentDirections;
@@ -49,6 +51,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class FavouriteConcertsFragment extends Fragment {
     private List<Event> events;
     private List<Event> futureEventsList;
+    private List<String> eventIds;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private FavouriteConcertsAdapter adapter;
@@ -58,6 +61,9 @@ public class FavouriteConcertsFragment extends Fragment {
 
     private NavController navController;
     private FavouriteConcertsViewModel mViewModel;
+
+    private EditText searchBox;
+    private Button searchButton;
 
     public static FavouriteConcertsFragment newInstance() {
         return new FavouriteConcertsFragment();
@@ -84,6 +90,20 @@ public class FavouriteConcertsFragment extends Fragment {
         menuItem1.setPressed(true);
 
         navController = Navigation.findNavController(view);
+        searchBox = view.findViewById(R.id.searchBox);
+        searchButton = view.findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> userEventIds = eventIds;
+                String idQuery = createStringQuery(userEventIds);
+
+                String searchQuery = searchBox.getText().toString().replace(" ", "+");
+                mViewModel.getSearchedFavorites(idQuery, searchQuery);
+            }
+        });
+
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,19 +184,10 @@ public class FavouriteConcertsFragment extends Fragment {
         mViewModel.getEventIds().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
-                String idQuery = "";
                 List<String> userEventIds = mViewModel.getEventIds().getValue();
-                System.out.println(userEventIds);
-                for(int i=0;i<=userEventIds.size()-1;i++){
-                    idQuery += userEventIds.get(i) + ",";
-                }
-//                if(userEventIds.size()>0){
-//                    idQuery += userEventIds.get(0);
-//                }
+                String idQuery = createStringQuery(userEventIds);
 
-                System.out.println(currentUserId);
-                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                System.out.println(idQuery);
+                eventIds = strings;
 
                 mViewModel.getFavorites(idQuery);
 
@@ -195,10 +206,22 @@ public class FavouriteConcertsFragment extends Fragment {
                                 navController.navigate(action);
                             }
                         };
+                        futureEventsList = listOfEvents;
                         adapter.updateData(listOfEvents, listener);
                     }
                 });
             }
         });
+    }
+
+    private String createStringQuery(List<String> plistIds) {
+        String idQuery = "";
+        for(int i=0;i<plistIds.size()-1;i++){
+            idQuery += plistIds.get(i) + ",";
+        }
+        if(plistIds.size()>0){
+            idQuery += plistIds.get(0);
+        }
+        return idQuery;
     }
 }

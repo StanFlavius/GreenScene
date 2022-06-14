@@ -52,4 +52,15 @@ public interface ApiPredictHQInterface {
                                                  @Query("q") String queryString,
                                                  @Query("end.lte") String end,
                                                  @Query("limit") Integer limit);
+
+    @GET("events")
+    Single<PredictHQResult> getFutureEventsByIdsAndQuery(@Header("Authorization") String authToken,
+                                                       @Header("Accept") String accept,
+                                                       @Query("category") String category,
+                                                       @Query("id") String listOfIds,
+                                                       @Query("q") String queryString,
+                                                       @Query("start.gte") String start,
+                                                       @Query("limit") Integer limit);
+
+
 }

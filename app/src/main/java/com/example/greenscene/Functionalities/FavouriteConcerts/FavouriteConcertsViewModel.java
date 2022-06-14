@@ -85,4 +85,24 @@ public class FavouriteConcertsViewModel extends ViewModel {
                     }
                 });
     }
+
+    public void getSearchedFavorites(String idQuery, String searchQuery) {
+        LocalDateTime now = LocalDateTime.now();
+        String timeNow = now.toString();
+
+        cRepo.getFutureEventsByIdsAndQuery(idQuery, searchQuery, timeNow)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<PredictHQResult>() {
+                    @Override
+                    public void onSuccess(PredictHQResult predictHQResult) {
+                        futureEvents.postValue(predictHQResult);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
+    }
 }

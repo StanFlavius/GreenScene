@@ -99,8 +99,6 @@ public class PastConcertsViewModel extends ViewModel {
                 .subscribeWith(new DisposableSingleObserver<PredictHQResult>() {
                     @Override
                     public void onSuccess(PredictHQResult predictHQResult) {
-                        System.out.println("NUUUUUUUUUUU");
-                        System.out.println(predictHQResult.getEvents().size());
                         pastEvents.postValue(predictHQResult);
                     }
 

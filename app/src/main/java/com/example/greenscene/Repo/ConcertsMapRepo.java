@@ -72,10 +72,12 @@ public class ConcertsMapRepo {
     public Single<PredictHQResult> getPastEventsByIdsAndQuery(String listOfIds, String searchQuery, String timeEnd) {
         ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
 
-        System.out.println("SUUUUUUUUURepo");
-        System.out.println(listOfIds);
-        System.out.println(searchQuery);
-        System.out.println(timeEnd);
         return apiPredictHQInterface.getPastEventsByIdsAndQuery(APIKEY_HQ, accept, "concerts", listOfIds, searchQuery, timeEnd, 20);
+    }
+
+    public Single<PredictHQResult> getFutureEventsByIdsAndQuery(String listOfIds, String searchQuery, String timeEnd) {
+        ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
+
+        return apiPredictHQInterface.getFutureEventsByIdsAndQuery(APIKEY_HQ, accept, "concerts", listOfIds, searchQuery, timeEnd, 20);
     }
 }
