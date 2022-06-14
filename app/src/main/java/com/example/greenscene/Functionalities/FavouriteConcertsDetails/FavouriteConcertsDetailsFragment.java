@@ -116,8 +116,9 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                        String eventData = currentEvent.getTitle() + " @ " + currentEvent.getStart();
+                        String eventData = currentEvent.getTitle() + " @ " + Utils.prettyFormatDate(currentEvent.getStart());
                         sendIntent.putExtra(Intent.EXTRA_TEXT,eventData);
+                        sendIntent.setType("text/plain");
                         startActivity(Intent.createChooser(sendIntent, "Share Event!"));
                     }
                 });
