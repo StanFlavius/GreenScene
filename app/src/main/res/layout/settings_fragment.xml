@@ -49,6 +49,8 @@
                     android:background="@android:color/transparent"
                     android:layout_marginRight="20dp"
                     app:labelVisibilityMode="labeled"
+                    app:itemIconTint="@color/bottom_item_background"
+                    app:itemTextColor="@color/bottom_item_background"
                     >
 
                 </com.google.android.material.bottomnavigation.BottomNavigationView>

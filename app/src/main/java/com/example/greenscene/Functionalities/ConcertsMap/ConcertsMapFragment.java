@@ -88,42 +88,68 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
         fAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
 
-//        FloatingActionButton button = view.findViewById(R.id.homeButton);
-//        button.setOnClickListener(new View.OnClickListener() {
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.favouriteConcertsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_concertsMapFragment_to_favouriteConcertsFragment2);
+                    break;
+                case R.id.pastConcertsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_concertsMapFragment_to_pastConcertsFragment2);
+                    break;
+                case R.id.settingsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_concertsMapFragment_to_settingsFragment2);
+                    break;
+                case R.id.logout:
+                    item.setChecked(true);
+                    fAuth.signOut();
+                    navController.navigate(R.id.action_concertsMapFragment_to_startScreenFragment);
+                    break;
+            }
+            return false;
+        });
+//        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+//        menuItem1.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
+//                navController.navigate(R.id.action_concertsMapFragment_to_favouriteConcertsFragment2);
+//            }
+//        });
+//
+//        BottomNavigationItemView menuItem2 = view.findViewById(R.id.pastConcertsFragment2);
+//        menuItem2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_concertsMapFragment_to_pastConcertsFragment2);
+//            }
+//        });
+//
+//        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
+//        menuItem3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_concertsMapFragment_to_settingsFragment2);
+//            }
+//        });
+//
+//        BottomNavigationItemView menuItem4 = view.findViewById(R.id.logout);
+//        menuItem4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                fAuth.signOut();
 //                navController.navigate(R.id.action_concertsMapFragment_to_startScreenFragment);
 //            }
 //        });
-        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
-        menuItem1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_concertsMapFragment_to_favouriteConcertsFragment2);
-            }
-        });
-
-        BottomNavigationItemView menuItem2 = view.findViewById(R.id.pastConcertsFragment2);
-        menuItem2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_concertsMapFragment_to_pastConcertsFragment2);
-            }
-        });
-
-        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
-        menuItem3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_concertsMapFragment_to_settingsFragment2);
-            }
-        });
 
         mViewModel = ViewModelProviders.of(this).get(ConcertsMapViewModel.class);
         mViewModel.init();
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapView);
         supportMapFragment.getMapAsync(this);
     }
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {

@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,10 +14,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +47,12 @@ import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 import com.google.android.gms.maps.model.UrlTileProvider;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -70,6 +79,8 @@ public class MapRouteFavFragment extends Fragment implements OnMapReadyCallback 
     private Polyline currentPolyline;
     private Integer REQUEST_CODE = 111;
     private ArrayList<LatLng> directionPositionList;
+    private NavController navController;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public static MapRouteFavFragment newInstance() {
         return new MapRouteFavFragment();
@@ -91,6 +102,94 @@ public class MapRouteFavFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        navController = Navigation.findNavController(view);
+
+        FloatingActionButton button = view.findViewById(R.id.homeButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_mapRouteFavFragment_to_concertsMapFragment);
+            }
+        });
+
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_mapRouteFavFragment_to_favouriteConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem2 = view.findViewById(R.id.settingsFragment2);
+        menuItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_mapRouteFavFragment_to_settingsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_mapRouteFavFragment_to_pastConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem4 = view.findViewById(R.id.logout);
+        menuItem4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAuth.signOut();
+                navController.navigate(R.id.action_mapRouteFavFragment_to_startScreenFragment);
+            }
+        });
+
+        TextView textChangePass = view.findViewById(R.id.changePassSett);
+        textChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText emailToReset = new EditText(view.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Reset password?");
+                builder.setMessage("Enter email to send password reset link");
+                builder.setView(emailToReset);
+
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    String email = emailToReset.getText().toString();
+                    if (email.isEmpty()){
+                        emailToReset.setError("Email is required");
+                        emailToReset.requestFocus();
+                        return;
+                    }
+                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        emailToReset.setError("Please provide a valid email");
+                        emailToReset.requestFocus();
+                        return;
+                    }
+                    firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_LONG).show();
+                                firebaseAuth.signOut();
+                                navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
+                            }
+                            else{
+                                Toast.makeText(getActivity(), "Something went wrong. Try again later!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                });
+
+                builder.setNegativeButton("No", (dialog, which) -> {
+
+                });
+
+                builder.create().show();
+            }
+        });
 
         if(getArguments() != null) {
 

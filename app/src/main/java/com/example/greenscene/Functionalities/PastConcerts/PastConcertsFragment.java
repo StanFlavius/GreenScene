@@ -69,6 +69,8 @@ public class PastConcertsFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem1.setPressed(true);
         FloatingActionButton button = view.findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,21 +79,49 @@ public class PastConcertsFragment extends Fragment {
             }
         });
 
-        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
-        menuItem1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_pastConcertsFragment2_to_favouriteConcertsFragment2);
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.settingsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_pastConcertsFragment2_to_settingsFragment2);
+                    break;
+                case R.id.favouriteConcertsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_pastConcertsFragment2_to_favouriteConcertsFragment2);
+                    break;
+                case R.id.logout:
+                    item.setChecked(true);
+                    fAuth.signOut();
+                    navController.navigate(R.id.action_pastConcertsFragment2_to_startScreenFragment);
+                    break;
             }
+            return false;
         });
-
-        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
-        menuItem3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_pastConcertsFragment2_to_settingsFragment2);
-            }
-        });
+//        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+//        menuItem1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_pastConcertsFragment2_to_favouriteConcertsFragment2);
+//            }
+//        });
+//
+//        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
+//        menuItem3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_pastConcertsFragment2_to_settingsFragment2);
+//            }
+//        });
+//
+//        BottomNavigationItemView menuItem4 = view.findViewById(R.id.logout);
+//        menuItem4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                fAuth.signOut();
+//                navController.navigate(R.id.action_pastConcertsFragment2_to_startScreenFragment);
+//            }
+//        });
 
         fAuth = FirebaseAuth.getInstance();
         recyclerView = view.findViewById(R.id.past_favorites_recycler);

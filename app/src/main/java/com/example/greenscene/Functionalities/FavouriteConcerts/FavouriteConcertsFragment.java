@@ -1,9 +1,11 @@
 package com.example.greenscene.Functionalities.FavouriteConcerts;
 
+import androidx.annotation.ColorInt;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -75,7 +77,8 @@ public class FavouriteConcertsFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setPressed(true);
 
         navController = Navigation.findNavController(view);
         FloatingActionButton button = view.findViewById(R.id.homeButton);
@@ -86,30 +89,50 @@ public class FavouriteConcertsFragment extends Fragment {
             }
         });
 
-//        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
-//        menuItem1.setOnClickListener(new View.OnClickListener() {
+
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.pastConcertsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_favouriteConcertsFragment2_to_pastConcertsFragment2);
+                    break;
+                case R.id.settingsFragment2:
+                    item.setChecked(true);
+                    navController.navigate(R.id.action_favouriteConcertsFragment2_to_settingsFragment2);
+                    break;
+                case R.id.logout:
+                    item.setChecked(true);
+                    fAuth.signOut();
+                    navController.navigate(R.id.action_favouriteConcertsFragment2_to_startScreenFragment);
+                    break;
+            }
+            return false;
+        });
+//        BottomNavigationItemView menuItem3 = view.findViewById(R.id.favouriteConcertsFragment2);
+//        menuItem3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                navController.navigate(R.id.action_favouriteConcertsFragment2_to_settingsFragment2);
+//            }
+//        });
+//
+//        BottomNavigationItemView menuItem4 = view.findViewById(R.id.pastConcertsFragment2);
+//        menuItem4.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                navController.navigate(R.id.action_favouriteConcertsFragment2_to_pastConcertsFragment2);
 //            }
 //        });
-
-
-        BottomNavigationItemView menuItem3 = view.findViewById(R.id.settingsFragment2);
-        menuItem3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_favouriteConcertsFragment2_to_settingsFragment2);
-            }
-        });
-
-        BottomNavigationItemView menuItem4 = view.findViewById(R.id.pastConcertsFragment2);
-        menuItem4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_favouriteConcertsFragment2_to_pastConcertsFragment2);
-            }
-        });
+//
+//        BottomNavigationItemView menuItem1 = view.findViewById(R.id.logout);
+//        menuItem1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                fAuth.signOut();
+//                navController.navigate(R.id.action_favouriteConcertsFragment2_to_startScreenFragment);
+//            }
+//        });
 
         fAuth = FirebaseAuth.getInstance();
         fMessage = FirebaseMessaging.getInstance();

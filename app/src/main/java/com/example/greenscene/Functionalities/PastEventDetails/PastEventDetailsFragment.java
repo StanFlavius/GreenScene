@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +36,8 @@ import com.example.greenscene.R;
 import com.example.greenscene.Repo.ImageRepo;
 import com.google.android.gms.location.ActivityTransition;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,7 +56,7 @@ public class PastEventDetailsFragment extends Fragment {
     private Button addCameraButton;
     private Uri imageUri;
     private Bitmap photoTaken;
-
+    private NavController navController;
     private PastEventDetailsViewModel mViewModel;
     private FirebaseAuth fAuth;
     private ImageRepo imageRepo;
@@ -84,6 +88,50 @@ public class PastEventDetailsFragment extends Fragment {
         }
 
         fAuth = FirebaseAuth.getInstance();
+
+        navController = Navigation.findNavController(view);
+
+        FloatingActionButton button = view.findViewById(R.id.homeButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_pastEventDetailsFragment_to_concertsMapFragment);
+            }
+        });
+
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_pastEventDetailsFragment_to_favouriteConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem2 = view.findViewById(R.id.settingsFragment2);
+        menuItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_pastEventDetailsFragment_to_settingsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_pastEventDetailsFragment_to_pastConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem4 = view.findViewById(R.id.logout);
+        menuItem4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fAuth.signOut();
+                navController.navigate(R.id.action_pastEventDetailsFragment_to_startScreenFragment);
+            }
+        });
+
         imageRepo = ImageRepo.getInstance();
 
         titleTextView = view.findViewById(R.id.pastDetailsTitle);

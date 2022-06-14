@@ -28,6 +28,8 @@ import com.example.greenscene.Functionalities.Utils.Utils;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
 import com.example.greenscene.R;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
@@ -75,6 +77,48 @@ public class FavouriteConcertsDetailsFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         fAuth = FirebaseAuth.getInstance();
+
+        FloatingActionButton button = view.findViewById(R.id.homeButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_favouriteConcertsDetailsFragment_to_concertsMapFragment);
+            }
+        });
+
+
+        BottomNavigationItemView menuItem1 = view.findViewById(R.id.favouriteConcertsFragment2);
+        menuItem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_favouriteConcertsDetailsFragment_to_favouriteConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem2 = view.findViewById(R.id.settingsFragment2);
+        menuItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_favouriteConcertsDetailsFragment_to_settingsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem3 = view.findViewById(R.id.pastConcertsFragment2);
+        menuItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_favouriteConcertsDetailsFragment_to_pastConcertsFragment2);
+            }
+        });
+
+        BottomNavigationItemView menuItem4 = view.findViewById(R.id.logout);
+        menuItem4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fAuth.signOut();
+                navController.navigate(R.id.action_favouriteConcertsDetailsFragment_to_startScreenFragment);
+            }
+        });
 
         mViewModel = ViewModelProviders.of(this).get(FavouriteConcertsDetailsViewModel.class);
         mViewModel.init(currentEventId);
