@@ -88,4 +88,26 @@ public class PastConcertsViewModel extends ViewModel {
                     }
                 });
     }
+
+    public void getSearchedFavorites(String idQuery, String searchQuery) {
+        LocalDateTime now = LocalDateTime.now();
+        String timeNow = now.toString();
+
+        cRepo.getPastEventsByIdsAndQuery(idQuery, searchQuery, timeNow)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<PredictHQResult>() {
+                    @Override
+                    public void onSuccess(PredictHQResult predictHQResult) {
+                        System.out.println("NUUUUUUUUUUU");
+                        System.out.println(predictHQResult.getEvents().size());
+                        pastEvents.postValue(predictHQResult);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
+    }
 }

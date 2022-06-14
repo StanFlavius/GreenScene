@@ -1,9 +1,12 @@
 package com.example.greenscene.Repo;
 
+import android.webkit.PermissionRequest;
+
 import com.example.greenscene.APIs.PredictHQ.ApiPredictHQ;
 import com.example.greenscene.APIs.PredictHQ.ApiPredictHQInterface;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
+import com.google.protobuf.Api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,5 +67,15 @@ public class ConcertsMapRepo {
         ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
 
         return apiPredictHQInterface.getFutureEventsByIds(APIKEY_HQ, accept, "concerts", listOfIds, timeEnd, 10);
+    }
+
+    public Single<PredictHQResult> getPastEventsByIdsAndQuery(String listOfIds, String searchQuery, String timeEnd) {
+        ApiPredictHQInterface apiPredictHQInterface = ApiPredictHQ.getApiPredictHQ().create(ApiPredictHQInterface.class);
+
+        System.out.println("SUUUUUUUUURepo");
+        System.out.println(listOfIds);
+        System.out.println(searchQuery);
+        System.out.println(timeEnd);
+        return apiPredictHQInterface.getPastEventsByIdsAndQuery(APIKEY_HQ, accept, "concerts", listOfIds, searchQuery, timeEnd, 20);
     }
 }

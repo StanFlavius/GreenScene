@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.Models.PredictHQApi.PredictHQResult;
@@ -43,11 +45,15 @@ public class PastConcertsFragment extends Fragment {
     private NavController navController;
     private List<Event> events;
     private List<Event> pastEventsList;
+    private List<String> eventIds;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private PastConcertsAdapter adapter;
     private PastConcertsAdapter.OnItemClickListener listener;
     private FirebaseAuth fAuth;
+
+    private EditText searchBox;
+    private Button searchButton;
 
     public static PastConcertsFragment newInstance() {
         return new PastConcertsFragment();
@@ -71,6 +77,19 @@ public class PastConcertsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+        searchBox = view.findViewById(R.id.searchBox);
+        searchButton = view.findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> userEventIds = eventIds;
+                String idQuery = createStringQuery(userEventIds);
+
+                String searchQuery = searchBox.getText().toString().replace(" ", "+");
+                mViewModel.getSearchedFavorites(idQuery, searchQuery);
+            }
+        });
 
         BottomNavigationItemView menuItem1 = view.findViewById(R.id.pastConcertsFragment2);
         menuItem1.setPressed(true);
@@ -142,14 +161,10 @@ public class PastConcertsFragment extends Fragment {
         mViewModel.getEventIds().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
-                String idQuery = "";
                 List<String> userEventIds = mViewModel.getEventIds().getValue();
-                for(int i=0;i<userEventIds.size()-1;i++){
-                    idQuery += userEventIds.get(i) + ",";
-                }
-                if(userEventIds.size()>0){
-                    idQuery += userEventIds.get(0);
-                }
+                String idQuery = createStringQuery(userEventIds);
+
+                eventIds = strings;
 
                 mViewModel.getFavorites(idQuery);
 
@@ -168,10 +183,22 @@ public class PastConcertsFragment extends Fragment {
                                 navController.navigate(action);
                             }
                         };
+                        pastEventsList = listOfEvents;
                         adapter.updateData(listOfEvents, listener);
                     }
                 });
             }
         });
+    }
+
+    private String createStringQuery(List<String> plistIds) {
+        String idQuery = "";
+        for(int i=0;i<plistIds.size()-1;i++){
+            idQuery += plistIds.get(i) + ",";
+        }
+        if(plistIds.size()>0){
+            idQuery += plistIds.get(0);
+        }
+        return idQuery;
     }
 }
