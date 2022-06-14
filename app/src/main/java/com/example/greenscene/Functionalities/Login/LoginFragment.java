@@ -2,6 +2,7 @@ package com.example.greenscene.Functionalities.Login;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,11 +13,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.greenscene.R;
@@ -36,6 +40,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.jetbrains.annotations.NotNull;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.Executor;
 
@@ -47,6 +53,8 @@ public class LoginFragment extends Fragment {
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
     private final static int RC_SIGN_IN = 123;
+    private ProgressBar progressBar;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -123,6 +131,49 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 signIn();
+            }
+        });
+
+        TextView textChangePass = view.findViewById(R.id.changePass);
+        textChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText emailToReset = new EditText(view.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Reset password?");
+                builder.setMessage("Enter email to send password reset link");
+                builder.setView(emailToReset);
+
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    String email = emailToReset.getText().toString();
+                    if (email.isEmpty()){
+                        emailToReset.setError("Email is required");
+                        emailToReset.requestFocus();
+                        return;
+                    }
+                        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                            emailToReset.setError("Please provide a valid email");
+                            emailToReset.requestFocus();
+                            return;
+                        }
+                            mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_LONG).show();
+                                    }
+                                    else{
+                                        Toast.makeText(getActivity(), "Something went wrong. Try again later!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                });
+
+                builder.setNegativeButton("No", (dialog, which) -> {
+
+                });
+
+                builder.create().show();
             }
         });
 

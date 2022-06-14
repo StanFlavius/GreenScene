@@ -2,6 +2,7 @@ package com.example.greenscene.Functionalities.Settings;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,17 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.greenscene.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -82,6 +89,51 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 firebaseAuth.signOut();
                 navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
+            }
+        });
+
+        TextView textChangePass = view.findViewById(R.id.changePassSett);
+        textChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText emailToReset = new EditText(view.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Reset password?");
+                builder.setMessage("Enter email to send password reset link");
+                builder.setView(emailToReset);
+
+                builder.setPositiveButton("Yes", (dialog, which) -> {
+                    String email = emailToReset.getText().toString();
+                    if (email.isEmpty()){
+                        emailToReset.setError("Email is required");
+                        emailToReset.requestFocus();
+                        return;
+                    }
+                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        emailToReset.setError("Please provide a valid email");
+                        emailToReset.requestFocus();
+                        return;
+                    }
+                    firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_LONG).show();
+                                firebaseAuth.signOut();
+                                navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
+                            }
+                            else{
+                                Toast.makeText(getActivity(), "Something went wrong. Try again later!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                });
+
+                builder.setNegativeButton("No", (dialog, which) -> {
+
+                });
+
+                builder.create().show();
             }
         });
     }
