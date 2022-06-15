@@ -133,6 +133,7 @@
             android:src="@drawable/ic_home"
             app:layout_anchor="@id/nav_bar"
             app:maxImageSize="50dp" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </FrameLayout>

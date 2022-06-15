@@ -149,51 +149,6 @@ public class MapRouteFavFragment extends Fragment implements OnMapReadyCallback 
             }
         });
 
-        TextView textChangePass = view.findViewById(R.id.changePassSett);
-        textChangePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText emailToReset = new EditText(view.getContext());
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Reset password?");
-                builder.setMessage("Enter email to send password reset link");
-                builder.setView(emailToReset);
-
-                builder.setPositiveButton("Yes", (dialog, which) -> {
-                    String email = emailToReset.getText().toString();
-                    if (email.isEmpty()){
-                        emailToReset.setError("Email is required");
-                        emailToReset.requestFocus();
-                        return;
-                    }
-                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                        emailToReset.setError("Please provide a valid email");
-                        emailToReset.requestFocus();
-                        return;
-                    }
-                    firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull @NotNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_LONG).show();
-                                firebaseAuth.signOut();
-                                navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
-                            }
-                            else{
-                                Toast.makeText(getActivity(), "Something went wrong. Try again later!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                });
-
-                builder.setNegativeButton("No", (dialog, which) -> {
-
-                });
-
-                builder.create().show();
-            }
-        });
-
         if(getArguments() != null) {
 
             MapRouteFavFragmentArgs args = MapRouteFavFragmentArgs.fromBundle(getArguments());
