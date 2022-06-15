@@ -237,7 +237,13 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
                 TextView descriptionTextView = mView.findViewById(R.id.descriptionTextView);
 
                 titleTextView.setText(predictHQResult.getEvents().get(0).getTitle());
-                descriptionTextView.setText(predictHQResult.getEvents().get(0).getCategory());
+                //descriptionTextView.setText(predictHQResult.getEvents().get(0).getCategory());
+
+                String rawDate = predictHQResult.getEvents().get(0).getStart();
+                String formatedDate = rawDate.split("T")[0];
+                String formatedHour = rawDate.split("T")[1].substring(0,6);
+
+                descriptionTextView.setText(formatedHour + " / " + formatedDate);
 
                 System.out.println(predictHQResult.getEvents().get(0).getId());
                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");

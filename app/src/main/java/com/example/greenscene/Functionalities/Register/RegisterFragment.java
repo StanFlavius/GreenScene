@@ -57,7 +57,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseFirestore db;
     private GoogleSignInOptions googleSignInOptions;
     private GoogleSignInClient googleSignInClient;
-    private final static int RC_SIGN_IN = 123;
+    private final static int RC_SIGN_IN = 111;
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();

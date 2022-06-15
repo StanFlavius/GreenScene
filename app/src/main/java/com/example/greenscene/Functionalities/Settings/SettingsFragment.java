@@ -3,6 +3,7 @@ package com.example.greenscene.Functionalities.Settings;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.greenscene.MainActivity;
 import com.example.greenscene.R;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -38,6 +48,7 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel mViewModel;
     private NavController navController;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    GoogleApiClient mGoogleApiClient;
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
@@ -46,6 +57,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.settings_fragment, container, false);
     }
 
@@ -54,6 +66,18 @@ public class SettingsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onStart() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        mGoogleApiClient.connect();
+        super.onStart();
     }
 
     @Override
@@ -85,8 +109,15 @@ public class SettingsFragment extends Fragment {
                     break;
                 case R.id.logout:
                     item.setChecked(true);
-                    firebaseAuth.signOut();
-                    navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
+
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                            new ResultCallback<Status>() {
+                                @Override
+                                public void onResult(Status status) {
+                                    firebaseAuth.signOut();
+                                    navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
+                                }
+                            });
                     break;
             }
             return false;

@@ -7,10 +7,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+
+    public GoogleSignInClient googleSignInClientAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +27,13 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE
         }, PackageManager.PERMISSION_GRANTED);
+    }
+
+    public GoogleSignInClient getGoogleSignInClientAct() {
+        return googleSignInClientAct;
+    }
+
+    public void setGoogleSignInClientAct(GoogleSignInClient googleSignInClientAct) {
+        this.googleSignInClientAct = googleSignInClientAct;
     }
 }

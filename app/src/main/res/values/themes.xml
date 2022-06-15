@@ -20,6 +20,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="buttonAdd" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/custom_button_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="text" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textColor">@color/verdish</item>
         <item name="android:textStyle">bold</item>
@@ -50,5 +56,6 @@
 
     <style name="background" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="background">@color/white</item>
+        <item name="android:radius">50dp</item>
     </style>
 </resources>

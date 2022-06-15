@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,11 +26,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.greenscene.MainActivity;
 import com.example.greenscene.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,6 +48,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.SQLOutput;
 import java.util.concurrent.Executor;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -55,10 +60,11 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private LoginViewModel mViewModel;
     private GoogleSignInOptions googleSignInOptions;
-    private GoogleSignInClient googleSignInClient;
-    private final static int RC_SIGN_IN = 123;
+    //private GoogleSignInClient googleSignInClient;
+    private final static int RC_SIGN_IN = 111;
     private ProgressBar progressBar;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public MainActivity mainActivity;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -67,6 +73,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        mainActivity = (MainActivity) getActivity();
         return inflater.inflate(R.layout.login_fragment, container, false);
     }
 
@@ -129,12 +136,21 @@ public class LoginFragment extends Fragment {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        googleSignInClient = GoogleSignIn.getClient(getActivity(), googleSignInOptions);
+        ((MainActivity)getActivity()).setGoogleSignInClientAct(GoogleSignIn.getClient(getActivity(), googleSignInOptions));
+        //mainActivity.setGoogleSignInClientAct(((MainActivity)getActivity()).googleSignInClientAct);
 
         buttonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
+            }
+        });
+
+        Button button = view.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).getGoogleSignInClientAct().signOut();
             }
         });
 
@@ -184,7 +200,12 @@ public class LoginFragment extends Fragment {
     }
 
     private void signIn(){
-        Intent intent = googleSignInClient.getSignInIntent();
+        Intent intent = ((MainActivity)getActivity()).getGoogleSignInClientAct().getSignInIntent();
+        System.out.println("DAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(intent);
+//        Intent intent = AccountPicker.newChooseAccountIntent(null, null,
+//                new String[] { "com.google" }, true, null, null, null,
+//                null);
         startActivityForResult(intent, RC_SIGN_IN);
     }
 
