@@ -24,14 +24,13 @@
 
     <Button
         android:id="@+id/buttonTestRegister"
+        style="@style/button"
         android:layout_width="223dp"
         android:layout_height="62dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="44dp"
         android:text="REGISTER"
         android:textSize="30dp"
-        style="@style/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonTestLogin" />
 
@@ -69,11 +68,23 @@
         android:layout_height="142dp"
         android:layout_marginStart="139dp"
         android:layout_marginTop="21dp"
+        android:visibility="gone"
         android:layout_marginEnd="139dp"
         android:src="@mipmap/ic_logo_mus_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonTestRegister" />
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="420dp"
+        android:layout_height="242dp"
+        android:layout_marginTop="21dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTestRegister">
+
+    </VideoView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

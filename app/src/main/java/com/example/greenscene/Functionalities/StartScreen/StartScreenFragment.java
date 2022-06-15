@@ -7,6 +7,9 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,8 @@ import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.example.greenscene.R;
 
@@ -35,6 +40,8 @@ public class StartScreenFragment extends Fragment {
     private StartScreenViewModel mViewModel;
     Button buttonLogin;
     Button buttonRegister;
+    private String videoPath = "https://firebasestorage.googleapis.com/v0/b/greenscene-d6e81.appspot.com/o/video.mp4?alt=media&token=f4e9fb64-6271-4599-9568-b6f49925f3ef";
+
 
     public static StartScreenFragment newInstance() {
         return new StartScreenFragment();
@@ -135,5 +142,15 @@ public class StartScreenFragment extends Fragment {
             objectAnimator2.start();
         }
 
+        VideoView videoView = view.findViewById(R.id.video);
+        Uri uri = Uri.parse(videoPath);
+        videoView.setVideoURI(uri);
+
+        MediaController mediaController = new MediaController(getContext());
+        videoView.setMediaController(mediaController);
+        mediaController.setAnchorView(videoView);
+
+
+        videoView.start();
     }
 }
