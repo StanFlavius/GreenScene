@@ -2,15 +2,54 @@
     <!-- Base application theme. -->
     <style name="Theme.GreenScene" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/verdish</item>
+        <item name="colorPrimaryVariant">@color/verdish</item>
+        <item name="colorOnPrimary">@color/verdish</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/black</item>
-        <item name="colorSecondaryVariant">@color/black</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/verdish</item>
+        <item name="colorSecondaryVariant">@color/verdish</item>
+        <item name="colorOnSecondary">@color/verdish</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="button" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/custom_button</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/verdish</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="transp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="buttonHome" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="backgroundTint">@color/black</item>
+    </style>
+
+    <style name="backgroundCard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="cardBackgroundColor">@color/black</item>
+    </style>
+
+    <style name="MyItemEvent" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="cardBackgroundColor">@color/verdish</item>
+        <item name="cardElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MyText" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="background" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="background">@color/black</item>
+    </style>
+
 </resources>

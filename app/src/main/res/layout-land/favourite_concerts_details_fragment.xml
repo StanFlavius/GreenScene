@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/background"
+    tools:context=".Functionalities.FavouriteConcertsDetails.FavouriteConcertsDetailsFragment">
+
+    <TextView
+        android:id="@+id/favElemTitle"
+        style="@style/MyText"
+        android:layout_width="241dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="444dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/favElemDescription"
+        style="@style/MyText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="412dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favElemTitle" />
+
+    <TextView
+        android:id="@+id/favElemStart"
+        style="@style/MyText"
+        android:layout_width="295dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="410dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favElemDescription" />
+
+    <Button
+        android:id="@+id/buttonToMap"
+        style="@style/button"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="66dp"
+        android:text="Get Route"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonShare"
+        style="@style/button"
+        android:layout_width="223dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="408dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="100dp"
+        android:text="Share Event"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToMap" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayoutt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            app:backgroundTint="@color/verdish"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="50dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:background="@color/verdish"
+                app:itemIconTint="@color/bottom_item_background"
+                app:itemTextColor="@color/bottom_item_background"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/menu">
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/homeButton"
+            style="@style/buttonHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_home"
+            app:layout_anchor="@id/nav_bar"
+            app:maxImageSize="50dp" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
