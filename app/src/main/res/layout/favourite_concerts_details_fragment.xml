@@ -61,7 +61,7 @@
         style="@style/button"
         android:layout_width="223dp"
         android:layout_height="42dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="122dp"
         android:layout_marginTop="84dp"
         android:layout_marginEnd="96dp"
         android:text="Get Route"
@@ -76,7 +76,7 @@
         style="@style/button"
         android:layout_width="223dp"
         android:layout_height="42dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="122dp"
         android:layout_marginTop="49dp"
         android:layout_marginEnd="96dp"
         android:text="Share Event"
@@ -96,8 +96,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favElemStart" />
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:id="@+id/coordinatorl"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/coordinator"
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

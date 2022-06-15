@@ -150,13 +150,13 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        Button button = view.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).getGoogleSignInClientAct().signOut();
-            }
-        });
+//        Button button = view.findViewById(R.id.button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ((MainActivity)getActivity()).getGoogleSignInClientAct().signOut();
+//            }
+//        });
 
         TextView textChangePass = view.findViewById(R.id.changePass);
         textChangePass.setOnClickListener(new View.OnClickListener() {

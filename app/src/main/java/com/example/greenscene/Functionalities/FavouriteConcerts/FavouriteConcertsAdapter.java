@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.greenscene.Functionalities.Utils.Utils;
 import com.example.greenscene.Models.PredictHQApi.Event;
 import com.example.greenscene.R;
 
@@ -45,11 +46,7 @@ public class FavouriteConcertsAdapter extends RecyclerView.Adapter<FavouriteConc
 
         holder.title.setText(model.getTitle());
 
-        String rawDate = model.getStart();
-        String formatedDate = rawDate.split("T")[0];
-        String formatedHour = rawDate.split("T")[1].substring(0,6);
-
-        holder.start.setText(formatedHour + " / " + formatedDate);
+        holder.start.setText(Utils.prettyFormatDate(model.getStart()));
 
         String descString;
         if(model.getDescription().length() > 3) {

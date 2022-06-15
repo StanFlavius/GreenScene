@@ -25,7 +25,7 @@ public class Utils {
 
     public static String prettyFormatDate(String rawDate) {
         String formatedDate = rawDate.split("T")[0];
-        String formatedHour = rawDate.split("T")[1].substring(0,6);
+        String formatedHour = rawDate.split("T")[1].substring(0,5);
 
         return formatedHour + " / " + formatedDate;
     }

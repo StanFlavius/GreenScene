@@ -143,14 +143,16 @@ public class StartScreenFragment extends Fragment {
         }
 
         VideoView videoView = view.findViewById(R.id.video);
-        Uri uri = Uri.parse(videoPath);
-        videoView.setVideoURI(uri);
+        if(videoView != null){
+            Uri uri = Uri.parse(videoPath);
+            videoView.setVideoURI(uri);
 
-        MediaController mediaController = new MediaController(getContext());
-        videoView.setMediaController(mediaController);
-        mediaController.setAnchorView(videoView);
+            MediaController mediaController = new MediaController(getContext());
+            videoView.setMediaController(mediaController);
+            mediaController.setAnchorView(videoView);
 
 
-        videoView.start();
+            videoView.start();
+        }
     }
 }

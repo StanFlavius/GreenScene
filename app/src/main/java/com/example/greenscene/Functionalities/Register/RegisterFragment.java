@@ -112,67 +112,66 @@ public class RegisterFragment extends Fragment {
                 if (emailData.equals("") || passwordData.equals("") || firstNameData.equals("") || lastNameData.equals("")){
                     Toast.makeText(getActivity(), "Registration failed! No empty box allowed!", Toast.LENGTH_SHORT).show();
                 }
-
+                else
                 if(!Patterns.EMAIL_ADDRESS.matcher(emailData).matches()){
                     Toast.makeText(getActivity(), "Registration failed! Email format incorrect!", Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    mViewModel.init();
+                    mViewModel.getEmails().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
+                        @Override
+                        public void onChanged(List<String> emails) {
+                            Boolean checkEmail = false;
 
-                mViewModel.init();
-                mViewModel.getEmails().observe((LifecycleOwner) getActivity(), new Observer<List<String>>() {
-                    @Override
-                    public void onChanged(List<String> emails) {
-                        Boolean checkEmail = false;
-
-                        if (emails != null){
-                            for (String e : emails) {
-                                if (e.equals(emailData)) {
-                                    checkEmail = true;
-                                    break;
+                            if (emails != null) {
+                                for (String e : emails) {
+                                    if (e.equals(emailData)) {
+                                        checkEmail = true;
+                                        break;
+                                    }
                                 }
                             }
+
+                            if (!checkEmail) {
+                                mAuth.createUserWithEmailAndPassword(emailData, passwordData).addOnCompleteListener((OnCompleteListener<AuthResult>) task -> {
+                                    if (task.isSuccessful()) {
+                                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                                FirebaseUser userC = mAuth.getCurrentUser();
+                                                User user = new User(userC.getUid(), emailData, firstNameData, lastNameData, passwordData);
+
+                                                db.collection("Users")
+                                                        .document(userC.getUid())
+                                                        .set(user)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                Log.d("ADDED", "User was added");
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull @NotNull Exception e) {
+                                                                Log.d("FAILED", e.getLocalizedMessage());
+                                                            }
+                                                        });
+
+                                                navController.navigate(R.id.action_registerFragment2_to_loginFragment2);
+                                            }
+                                        });
+                                    } else {
+
+                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(getActivity(), "Registration failed! Email already exists", Toast.LENGTH_SHORT).show();
+                            }
                         }
-
-                        if (! checkEmail){
-                            mAuth.createUserWithEmailAndPassword(emailData, passwordData).addOnCompleteListener((OnCompleteListener<AuthResult>) task ->{
-                                if (task.isSuccessful()){
-                                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                            FirebaseUser userC = mAuth.getCurrentUser();
-                                            User user = new User(userC.getUid(), emailData, firstNameData, lastNameData, passwordData);
-
-                                            db.collection("Users")
-                                                    .document(userC.getUid())
-                                                    .set(user)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                            Log.d("ADDED", "User was added");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull @NotNull Exception e) {
-                                                            Log.d("FAILED", e.getLocalizedMessage());
-                                                        }
-                                                    });
-
-                                            navController.navigate(R.id.action_registerFragment2_to_loginFragment2);
-                                        }
-                                    });
-                                }
-                                else{
-
-                                    Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                        else{
-                            Toast.makeText(getActivity(), "Registration failed! Email already exists", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
+                    });
+                }
+                }
         });
 
         ImageView buttonGoogle = view.findViewById(R.id.registerGoogle);
@@ -192,6 +191,7 @@ public class RegisterFragment extends Fragment {
 
     private void signIn(){
         Intent intent = googleSignInClient.getSignInIntent();
+        googleSignInClient.signOut();
         startActivityForResult(intent, RC_SIGN_IN);
     }
 
