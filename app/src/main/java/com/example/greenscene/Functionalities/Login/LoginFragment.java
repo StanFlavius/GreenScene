@@ -65,6 +65,7 @@ public class LoginFragment extends Fragment {
     private ProgressBar progressBar;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     public MainActivity mainActivity;
+    private GoogleSignInClient googleSignInClient;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -131,12 +132,15 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        googleSignInClient = ((MainActivity)getActivity()).googleSignInClientAct;
+
         ImageView buttonGoogle = view.findViewById(R.id.buttonToLoginGoogle);
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        ((MainActivity)getActivity()).setGoogleSignInClientAct(GoogleSignIn.getClient(getActivity(), googleSignInOptions));
+        googleSignInClient = GoogleSignIn.getClient(getActivity(), googleSignInOptions);
+        //((MainActivity)getActivity()).setGoogleSignInClientAct(GoogleSignIn.getClient(getActivity(), googleSignInOptions));
         //mainActivity.setGoogleSignInClientAct(((MainActivity)getActivity()).googleSignInClientAct);
 
         buttonGoogle.setOnClickListener(new View.OnClickListener() {
@@ -200,12 +204,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void signIn(){
-        Intent intent = ((MainActivity)getActivity()).getGoogleSignInClientAct().getSignInIntent();
-        System.out.println("DAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println(intent);
-//        Intent intent = AccountPicker.newChooseAccountIntent(null, null,
-//                new String[] { "com.google" }, true, null, null, null,
-//                null);
+        Intent intent = googleSignInClient.getSignInIntent();
+        ((MainActivity)getActivity()).googleSignInClientAct= googleSignInClient;
+        googleSignInClient.signOut();
         startActivityForResult(intent, RC_SIGN_IN);
     }
 

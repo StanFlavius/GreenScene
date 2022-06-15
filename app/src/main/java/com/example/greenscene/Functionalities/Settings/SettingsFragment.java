@@ -1,5 +1,7 @@
 package com.example.greenscene.Functionalities.Settings;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
@@ -17,10 +19,12 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.greenscene.Functionalities.Login.LoginFragment;
 import com.example.greenscene.MainActivity;
 import com.example.greenscene.R;
 import com.google.android.gms.auth.api.Auth;
@@ -84,6 +88,18 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SwitchCompat switchCompat = view.findViewById(R.id.darkMode);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked())
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                else
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+        });
+
         navController = Navigation.findNavController(view);
 
         BottomNavigationItemView menuItem1 = view.findViewById(R.id.settingsFragment2);
@@ -110,14 +126,16 @@ public class SettingsFragment extends Fragment {
                 case R.id.logout:
                     item.setChecked(true);
 
-                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                            new ResultCallback<Status>() {
-                                @Override
-                                public void onResult(Status status) {
-                                    firebaseAuth.signOut();
-                                    navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
-                                }
-                            });
+                    firebaseAuth.signOut();
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    ((MainActivity)getActivity()).googleSignInClientAct.signOut().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+                            navController.navigate(R.id.action_settingsFragment2_to_startScreenFragment);
+                        }
+                    });
+
                     break;
             }
             return false;
