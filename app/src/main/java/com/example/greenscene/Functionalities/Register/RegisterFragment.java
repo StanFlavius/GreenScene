@@ -109,7 +109,7 @@ public class RegisterFragment extends Fragment {
                 Log.d("d", emailData + passwordData + firstNameData + lastNameData);
 
 
-                if (emailData.equals("") || passwordData.equals("")){
+                if (emailData.equals("") || passwordData.equals("") || firstNameData.equals("") || lastNameData.equals("")){
                     Toast.makeText(getActivity(), "Registration failed! No empty box allowed!", Toast.LENGTH_SHORT).show();
                 }
 

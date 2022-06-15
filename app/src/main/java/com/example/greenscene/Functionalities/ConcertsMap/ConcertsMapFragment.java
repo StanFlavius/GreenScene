@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -66,6 +70,8 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
     private ConcertsMapViewModel mViewModel;
     private GoogleMap gMap;
     private FirebaseAuth fAuth;
+    FloatingActionButton homeButton;
+    ObjectAnimator objectAnimator;
 
     public static ConcertsMapFragment newInstance() {
         return new ConcertsMapFragment();
@@ -84,12 +90,25 @@ public class ConcertsMapFragment extends Fragment implements OnMapReadyCallback,
         // TODO: Use the ViewModel
     }
 
+    public void setColor(float color){
+        homeButton.setBackgroundColor((int) color);
+    }
+
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         fAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
+
+        homeButton = view.findViewById(R.id.homeButton);
+
+        objectAnimator = ObjectAnimator.ofFloat(this, String.valueOf(View.ALPHA), 0, 100);
+        objectAnimator.setDuration(2000);
+        objectAnimator.setInterpolator(new LinearInterpolator());
+        objectAnimator.start();
+
+
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
